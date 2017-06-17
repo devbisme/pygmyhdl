@@ -134,59 +134,68 @@ def exhaustive_sim(*wires):
 
 show_waveforms = Peeker.to_wavedrom
 
+# def group(f):
+    # def group_wrapper(*args, **kwargs):
+        # begin = len(_instances)
+        # f(*args, **kwargs)
+        # return _instances[begin:]
+    # return group_wrapper
+
 def group(f):
     def group_wrapper(*args, **kwargs):
         begin = len(_instances)
         f(*args, **kwargs)
         return _instances[begin:]
-    return group_wrapper
-
-# def group(f):
-    # def blk_wrapper(*args, **kwargs):
-        # blk = block(f)
-        # return blk(*args, **kwargs)
-    # def grp_wrapper(*args, **kwargs):
-        # begin = len(_instances)
-        # blk = blk_wrapper(*args, **kwargs)
-        # _instances.extend(blk)
-        # return _instances[begin:]
-    # return grp_wrapper
-
-# def group(f):
-    # def wrapper(*args, **kwargs):
-        # begin = len(_instances)
-        # f(*args, **kwargs)
-        # return _instances[begin:] 
-    # wrapper = block(wrapper)
-    # def wrapper2(*args, **kwargs):
-        # blk = wrapper(*args, **kwargs)
-        # _instances.append(blk)
-        # return blk
-    # return wrapper2
+    blk_func = block(group_wrapper)
+    return blk_func
 
 
 ############## Logic gate definitions. #################
 
 @block
-def and_g(a, b, c):
-    @always_comb
-    def logic():
-        c.next = a & b
-    _instances.append(logic)
-    return logic
+def inv_g(a, o):
+    @block
+    def blk_func(a, o):
+        @always_comb
+        def logic():
+            o.next = not a
+        return logic
+    gate_inst = blk_func(a, o)
+    _instances.append(gate_inst)
+    return gate_inst
 
 @block
-def or_g(a, b, c):
-    @always_comb
-    def logic():
-        c.next = a | b
-    _instances.append(logic)
-    return logic
+def and_g(a, b, o):
+    @block
+    def blk_func(a, b, o):
+        @always_comb
+        def logic():
+            o.next = a & b
+        return logic
+    gate_inst = blk_func(a, b, o)
+    _instances.append(gate_inst)
+    return gate_inst
 
 @block
-def xor_g(a, b, c):
-    @always_comb
-    def logic():
-        c.next = a ^ b
-    _instances.append(logic)
-    return logic
+def or_g(a, b, o):
+    @block
+    def blk_func(a, b, o):
+        @always_comb
+        def logic():
+            o.next = a | b
+        return logic
+    gate_inst = blk_func(a, b, o)
+    _instances.append(gate_inst)
+    return gate_inst
+
+@block
+def xor_g(a, b, o):
+    @block
+    def blk_func(a, b, o):
+        @always_comb
+        def logic():
+            o.next = a ^ b
+        return logic
+    gate_inst = blk_func(a, b, o)
+    _instances.append(gate_inst)
+    return gate_inst
