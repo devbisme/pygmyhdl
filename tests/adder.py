@@ -26,23 +26,26 @@ def adder_bit(a, b, c_in, sum_out, c_out):
 def unrolled_adder(a, b, sum_out):
     num_bits = len(a)
     c = Bus(num_bits+1)
-    adder_bit(a(0), b(0), c(0), sum_out.i[0], c.i[1])
-    adder_bit(a(1), b(1), c(1), sum_out.i[1], c.i[2])
-    adder_bit(a(2), b(2), c(2), sum_out.i[2], c.i[3])
-    adder_bit(a(3), b(3), c(3), sum_out.i[3], c.i[4])
+    adder_bit(a.o[0], b.o[0], c.o[0], sum_out.i[0], c.i[1])
+    adder_bit(a.o[1], b.o[1], c.o[1], sum_out.i[1], c.i[2])
+    adder_bit(a.o[2], b.o[2], c.o[2], sum_out.i[2], c.i[3])
+    adder_bit(a.o[3], b.o[3], c.o[3], sum_out.i[3], c.i[4])
     
 @group
 def adder(a, b, sum_out):
     num_bits = len(a)
     c = Bus(num_bits+1)
     for j in range(num_bits):
-        adder_bit(a(j), b(j), c(j), sum_out.i[j], c.i[j+1])
+        adder_bit(a.o[j], b.o[j], c.o[j], sum_out.i[j], c.i[j+1])
 
 a, b, sum_a_b = [Bus(4,name) for name in 'a b a+b'.split()]
 print(adder(a, b, sum_a_b))
+sum_a_b = Bus(4)
+print(unrolled_adder(a, b, sum_a_b))
 #print(len(adder(a, b, sum_a_b)))
 #print(len(unrolled_adder(a, b, sum_a_b)))
-#toVHDL(unrolled_adder, a, b, sum_a_b)
-sum_a_b_2 = Bus(4)
-toVHDL(adder, a, b, sum_a_b_2)
+sum_a_b = Bus(4)
+toVHDL(unrolled_adder, a, b, sum_a_b)
+sum_a_b = Bus(4)
+toVerilog(adder, a, b, sum_a_b)
 #toVerilog(adder, a, b, sum_a_b)
