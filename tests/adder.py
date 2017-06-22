@@ -26,17 +26,17 @@ def adder_bit(a, b, c_in, sum_out, c_out):
 def unrolled_adder(a, b, sum_out):
     num_bits = len(a)
     c = Bus(num_bits+1)
-    adder_bit(a(0), b(0), c(0), sum_out.wo[0], c.wo[1])
-    adder_bit(a(1), b(1), c(1), sum_out.wo[1], c.wo[2])
-    adder_bit(a(2), b(2), c(2), sum_out.wo[2], c.wo[3])
-    adder_bit(a(3), b(3), c(3), sum_out.wo[3], c.wo[4])
+    adder_bit(a(0), b(0), c(0), sum_out.i[0], c.i[1])
+    adder_bit(a(1), b(1), c(1), sum_out.i[1], c.i[2])
+    adder_bit(a(2), b(2), c(2), sum_out.i[2], c.i[3])
+    adder_bit(a(3), b(3), c(3), sum_out.i[3], c.i[4])
     
 @group
 def adder(a, b, sum_out):
     num_bits = len(a)
     c = Bus(num_bits+1)
-    for i in range(num_bits):
-        adder_bit(a(i), b(i), c(i), sum_out.wo[i], c.wo[i+1])
+    for j in range(num_bits):
+        adder_bit(a(j), b(j), c(j), sum_out.i[j], c.i[j+1])
 
 a, b, sum_a_b = [Bus(4,name) for name in 'a b a+b'.split()]
 print(adder(a, b, sum_a_b))

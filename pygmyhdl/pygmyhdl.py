@@ -77,7 +77,7 @@ class Bus(SignalType):
             Peeker(self, name)
 
     @property
-    def wo(self):
+    def i(self):
         if self._wo_done:
             return self.wires
         self.wires = [Wire() for _ in range(0, self.width)]
