@@ -72,25 +72,29 @@ class Bus(SignalType):
     def __init__(self, width=1, name=None):
         super().__init__(intbv(0, min=0, max=2**width))
         self.width = width
-        self._wo_done = False
+        self.i_wires = None
         if name:
             Peeker(self, name)
 
     @property
     def i(self):
-        if self._wo_done:
-            return self.wires
-        self.wires = [Wire() for _ in range(0, self.width)]
-        def set_wires(wo, wi):
-            q = ConcatSignal(*reversed(wi))
-            @always_comb
-            def logic():
-                wo.next = q
-            return logic
-        inst = set_wires(self, self.wires)
-        _instances.append(inst)
-        self._wo_done = True
-        return self.wires
+        '''Return a list of wires that will drive this Bus object.'''
+        if not self.i_wires:
+            self.i_wires = [Wire() for _ in range(0, self.width)]
+            def i2o(i, o):
+                i_bus = ConcatSignal(*reversed(i))
+                @always_comb
+                def xfer():
+                    o.next = i_bus
+                return xfer
+            xfer_inst = i2o(self.i_wires, self)
+            _instances.append(xfer_inst)
+        return self.i_wires
+
+    @property
+    def o(self):
+        '''Return a set of wires carrying the bit values of the Bus wires.'''
+        pass
 
 def simulate(*modules):
     def flatten(nested_list):
