@@ -81,13 +81,13 @@ class Bus(SignalType):
         if self._wo_done:
             return self.wires
         self.wires = [Wire() for _ in range(0, self.width)]
-        def blk_func(wi, wo):
+        def set_wires(wo, wi):
+            q = ConcatSignal(*reversed(wi))
             @always_comb
-            def set_wires():
-                wo.next = ConcatSignal(*reversed(wi))
-            return set_wires
-        #_wire_setters.append(set_wires)
-        inst = blk_func(self.wires, self)
+            def logic():
+                wo.next = q
+            return logic
+        inst = set_wires(self, self.wires)
         _instances.append(inst)
         self._wo_done = True
         return self.wires
