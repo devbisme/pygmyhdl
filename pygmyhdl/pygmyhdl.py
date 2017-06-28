@@ -63,14 +63,14 @@ def initialize():
     Peeker.clear()
 
 class Wire(SignalType):
-    def __init__(self, name=None):
-        super().__init__(bool(0))
+    def __init__(self, init_val=0, name=None):
+        super().__init__(bool(init_val))
         if name:
             Peeker(self, name)
 
 class Bus(SignalType):
-    def __init__(self, width=1, name=None):
-        super().__init__(intbv(0, min=0, max=2**width))
+    def __init__(self, width=1, init_val=0, name=None):
+        super().__init__(intbv(init_val)[width:])
         self.width = width
         self.i_wires = None
         self.o_wires = None
@@ -81,7 +81,7 @@ class Bus(SignalType):
     def i(self):
         '''Return a list of wires that will drive this Bus object.'''
         if not self.i_wires:
-            self.i_wires = [Wire() for _ in range(self.width)]
+            self.i_wires = [Wire(self.val[i]) for i in range(self.width)]
             def wires2bus(wires, bus):
                 wires_bus = ConcatSignal(*reversed(wires))
                 @always_comb
@@ -98,6 +98,9 @@ class Bus(SignalType):
         if not self.o_wires:
             self.o_wires = [self(i) for i in range(self.width)]
         return self.o_wires
+
+
+############## Simulation. #################
 
 def simulate(*modules):
     def flatten(nested_list):
@@ -265,5 +268,15 @@ def xor_g(a, b, o):
             o.next = a ^ b
         return logic
     gate_inst = blk_func(a, b, o)
+    _instances.append(gate_inst)
+    return gate_inst
+
+def dff_g(clk, d, q):
+    def blk_func(clk, d, q):
+        @always_seq(clk.pos_edge)
+        def logic():
+            q.next = d
+        return logic
+    gate_inst = blk_func(clk, d, q)
     _instances.append(gate_inst)
     return gate_inst
