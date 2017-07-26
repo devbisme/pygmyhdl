@@ -26,6 +26,8 @@ from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import division
 from __future__ import absolute_import
+from builtins import super
+from builtins import range
 from future import standard_library
 standard_library.install_aliases()
 
@@ -240,8 +242,9 @@ def get_max(signal):
 def get_min(signal):
     return signal.min or 0
 
-def random_test(num_tests, *signals, dly=1):
+def random_test(num_tests, *signals, **kwargs):
     '''Generate a set of test vectors with random values assigned to the signals.'''
+    dly = kwargs.get('dly', 1)
     for _ in range(num_tests):
         for sig in signals:
             # Assign a random value within the allowable range of this signal.
@@ -252,8 +255,9 @@ def random_sim(num_steps, *signals):
     '''Run a simulation with a set of random test vectors.'''
     simulate(random_test(num_steps, *signals))
     
-def exhaustive_test(*signals, dly=1):
+def exhaustive_test(*signals, **kwargs):
     '''Generate all possible test vectors for a set of signals.'''
+    dly = kwargs.get('dly', 1)
     if len(signals) == 0:
         yield delay(dly)
     else:
