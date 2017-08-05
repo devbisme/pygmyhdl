@@ -2,7 +2,7 @@ from pygmyhdl import *
 
 initialize()
 
-@group
+@chunk
 def adder_bit(a, b, c_in, sum_out, c_out):
     xor_g(sum_out, a, b, c_in)
     
@@ -12,7 +12,7 @@ def adder_bit(a, b, c_in, sum_out, c_out):
     and_g(cry_b_c, b, c_in)
     or_g(c_out, cry_a_b, cry_a_c, cry_b_c)
 
-@group
+@chunk
 def adder(a, b, sum_out):
     num_bits = len(a)
     #c = Bus(num_bits+1,0)
@@ -22,17 +22,17 @@ def adder(a, b, sum_out):
     for j in range(1, num_bits):
         adder_bit(a.o[j], b.o[j], c.o[j-1], sum_out.i[j], c.i[j])
 
-@group
+@chunk
 def incr(a, a_incr):
     one = Bus(len(a), 1)
     adder(a, one, a_incr)
 
-@group
+@chunk
 def register(clk, d, q):
     for i in range(len(d)):
         dff_g(clk, d.o[i], q.i[i])
 
-@group
+@chunk
 def counter(clk, q):
     q_plus_1 = Bus(len(q))
     incr(q, q_plus_1)
