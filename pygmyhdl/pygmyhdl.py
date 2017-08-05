@@ -176,6 +176,12 @@ class Wire(SignalType):
         if name:
             Peeker(self, name)
 
+@group
+def _xfer(a, b):
+    @comb_logic
+    def logic():
+        b.next = a
+
 class Bus(SignalType):
     '''A multi-bit signal.'''
     def __init__(self, width=1, init_val=0, name=None):
@@ -192,11 +198,6 @@ class Bus(SignalType):
         if not self.i_wires:
             self.i_wires = [Wire(self.val[i]) for i in range(self.width)]
             wires_bus = ConcatSignal(*reversed(self.i_wires))
-            @group
-            def _xfer(a, b):
-                @comb_logic
-                def logic():
-                    b.next = a
             _xfer(wires_bus, self)
         return self.i_wires
 
