@@ -29,6 +29,10 @@ with open('HISTORY.rst') as history_file:
 requirements = [
     # Put package requirements here
     'future >= 0.15.0',
+    'byteplay3',
+    'myhdl',
+    'myhdlpeek',
+    'apio',
 ]
 
 test_requirements = [

@@ -59,7 +59,7 @@ DEBUG_OBSESSIVE = logging.DEBUG - 2
 _instances = list()
 
 
-############## Logic function decorators. #################
+############## @comb_logic & @seq_logic decorators. #################
 
 try:
     # These are the logic function decorators for MyHDL version >= 1.0.
@@ -236,10 +236,17 @@ class Wire(SignalType):
         if name:
             Peeker(self, name)
 
+@chunk
+def _bus_xfer(a, b):
+    '''A simple hardware chunk to transfer one bus to another.'''
+    @comb_logic
+    def logic():
+        b.next = a
+
 class Bus(SignalType):
     '''A multi-bit signal.'''
-    def __init__(self, width=1, init_val=0, name=None):
-        super().__init__(intbv(init_val)[width:])
+    def __init__(self, width=1, init_val=0, name=None, vtype=modbv):
+        super().__init__(vtype(init_val)[width:])
         self.width = width
         self.i_wires = None
         self.o_wires = None
@@ -297,18 +304,19 @@ def get_max(signal):
 def get_min(signal):
     return signal.min or 0
 
-def random_test(num_tests, *signals, **kwargs):
+def random_test(*signals, **kwargs):
     '''Generate a set of test vectors with random values assigned to the signals.'''
     dly = kwargs.get('dly', 1)
+    num_tests = kwargs.get('num_tests', 10)
     for _ in range(num_tests):
         for sig in signals:
             # Assign a random value within the allowable range of this signal.
             sig.next = randrange(get_min(sig), get_max(sig))
         yield delay(dly)
 
-def random_sim(num_steps, *signals):
+def random_sim(*signals, **kwargs):
     '''Run a simulation with a set of random test vectors.'''
-    simulate(random_test(num_steps, *signals))
+    simulate(random_test(*signals, **kwargs))
     
 def exhaustive_test(*signals, **kwargs):
     '''Generate all possible test vectors for a set of signals.'''
@@ -319,51 +327,40 @@ def exhaustive_test(*signals, **kwargs):
         for signals[0].next in range(get_min(signals[0]), get_max(signals[0])):
             yield from exhaustive_test(*signals[1:])
 
-def exhaustive_sim(*signals):
+def exhaustive_sim(*signals, **kwargs):
     '''Run a simulation with an exhaustive set of test vectors.'''
-    simulate(exhaustive_test(*signals))
+    simulate(exhaustive_test(*signals, **kwargs))
 
+def clk_test(clk, **kwargs):
+    '''Strobe a clock signal for a number of cycles.'''
+    dly = kwargs.get('dly', 1)
+    num_cycles = kwargs.get('num_cycles', 10)
+    for _ in range(num_cycles):
+        clk.next = 0
+        yield delay(dly)
+        clk.next = 1
+        yield delay(dly)
 
-############## Logic gate definitions. #################
+def clk_sim(clk, **kwargs):
+    '''Run a simulation for a number of clock cycles.'''
+    simulate(clk_test(clk, **kwargs))
 
-@chunk
-def _bus_xfer(a, b):
-    '''Transfer one bus to another.'''
-    @comb_logic
-    def logic():
-        b.next = a
+def vector_test(*vectors, **kwargs):
+    dly = kwargs.get('dly', 1)
+    try:
+        num_cycles = max([len(v)-1 for v in vectors])
+    except ValueError:
+        num_cycles = 0
+    num_cycles = kwargs.get('num_cycles', num_cycles)
 
-@chunk
-def inv_g(o, a):
-    '''Inverter (NOT gate).'''
-    @comb_logic
-    def logic():
-        o.next = not a
+    for i in range(num_cycles):
+        for v in vectors:
+            try:
+                v[0].next = v[1][i]
+                keep_going = True
+            except IndexError:
+                v[0].next = v[1][-1]
+        yield delay(1)
 
-@chunk
-def and_g(o, a, b, c=Wire(1), d=Wire(1), e=Wire(1)):
-    '''AND gate.'''
-    @comb_logic
-    def logic():
-        o.next = a & b & c & d & e
-
-@chunk
-def or_g(o, a, b, c=Wire(0), d=Wire(0), e=Wire(0)):
-    '''OR gate.'''
-    @comb_logic
-    def logic():
-        o.next = a | b | c | d | e
-
-@chunk
-def xor_g(o, a, b, c=Wire(0), d=Wire(0), e=Wire(0)):
-    '''XOR gate.'''
-    @comb_logic
-    def logic():
-        o.next = a ^ b ^ c ^ d ^ e
-
-@chunk
-def dff_g(clk, d, q):
-    '''Positive-edge triggered D flip-flop.'''
-    @seq_logic(clk.posedge)
-    def logic():
-        q.next = d
+def vector_sim(*vectors, **kwargs):
+    simulate(vector_test(*vectors, **kwargs))

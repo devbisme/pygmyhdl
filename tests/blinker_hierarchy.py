@@ -1,5 +1,4 @@
 from pygmyhdl import *
-from pygmyhdl.gates import *
 
 initialize()
 
@@ -39,19 +38,20 @@ def counter(clk, q):
     incr(q, q_plus_1)
     register(clk, q_plus_1, q)
 
+@chunk
+def blinker(clk, led):
+    cnt = Bus(23, name='cnt')
+    counter(clk, cnt)
+    @comb_logic
+    def logic():
+        led.next = cnt[22]
+
 clk = Wire(0, name='clk')
-cnt = Bus(4, name='cnt')
-counter(clk, cnt)
+led = Wire(0, name='led')
+blinker(clk, led)
 
-def test():
-    for _ in range(20):
-        clk.next = 1
-        yield delay(1)
-        clk.next = 0
-        yield delay(1)
+clk_sim(clk, 20)
+show_text_table('clk led')
 
-simulate(test())
-show_text_table('clk cnt')
-
-cnt1 = Bus(4)
-toVerilog(counter, clk, cnt1)
+led1 = Wire(0)
+toVerilog(blinker, clk, led1)
