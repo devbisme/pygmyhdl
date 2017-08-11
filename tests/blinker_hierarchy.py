@@ -1,4 +1,5 @@
 from pygmyhdl import *
+from pygmyhdl.gates import *
 
 initialize()
 
@@ -39,18 +40,18 @@ def counter(clk, q):
     register(clk, q_plus_1, q)
 
 @chunk
-def blinker(clk, led):
+def blinker(clk_i, led_o):
     cnt = Bus(23, name='cnt')
-    counter(clk, cnt)
+    counter(clk_i, cnt)
     @comb_logic
     def logic():
-        led.next = cnt[22]
+        led_o.next = cnt[22]
 
 clk = Wire(0, name='clk')
 led = Wire(0, name='led')
 blinker(clk, led)
 
-clk_sim(clk, 20)
+clk_sim(clk, num_cycles=20)
 show_text_table('clk led')
 
 led1 = Wire(0)

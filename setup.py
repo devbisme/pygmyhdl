@@ -4,6 +4,8 @@
 import sys
 import setuptools
 
+USING_PYTHON2 = (sys.version_info.major == 2)
+USING_PYTHON3 = not USING_PYTHON2
 
 author = 'XESS Corp.'
 email = 'info@xess.com'
@@ -26,14 +28,24 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
-requirements = [
-    # Put package requirements here
-    'future >= 0.15.0',
-    'byteplay3',
-    'myhdl',
-    'myhdlpeek',
-    'apio',
-]
+if USING_PYTHON3:
+    requirements = [
+        # Put package requirements here
+        'future >= 0.15.0',
+        'byteplay3',
+        'myhdl',
+        'myhdlpeek',
+        'apio',
+    ]
+else:
+    requirements = [
+        # Put package requirements here
+        'future >= 0.15.0',
+        'byteplay',
+        'myhdl',
+        'myhdlpeek',
+        'apio',
+    ]
 
 test_requirements = [
     # Put package test requirements here

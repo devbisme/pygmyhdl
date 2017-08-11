@@ -117,18 +117,18 @@ except ImportError:
 
     def comb_logic(f):
         '''Create a combinational logic block and store it on the instance list.'''
-        def blk_func(f):
+        def comb_func(f):
             return always_comb(f)
-        inst = blk_func(f)
+        inst = comb_func(f)
         _instances.append(inst)
         return inst
 
     def seq_logic(trigger):
         '''Create a sequential logic block and store it on the instance list.'''
         def seq_logic_decorator(f):
-            def blk_func(f):
+            def seq_func(f):
                 return always_seq(trigger,None)(f)
-            inst = blk_func(f)
+            inst = seq_func(f)
             _instances.append(inst)
             return inst
         return seq_logic_decorator
@@ -136,24 +136,6 @@ except ImportError:
 
 
 ############## @chunk decorator. #################
-
-def preamble_func():
-    return len(_instances)
-
-def postamble_func(index, myhdl_instances):
-    global _instances
-
-    # Build a list of unique instances created by the f() function.
-    grp = _instances[index:] + myhdl_instances
-    grp = sorted(grp, key=id)
-    grp = [k for k,_ in itertools.groupby(grp)]
-
-    # Append the list of instances to the global _instances list.
-    _instances = _instances[:index]
-    _instances.append(grp)
-
-    # Return the list of instances.
-    return grp
 
 if USING_PYTHON3:
     def _func_copy(f, new_code) :
@@ -178,6 +160,26 @@ else:
                                closure=f.func_closure)
         g = functools.update_wrapper(g, f)
         return g
+
+def preamble_func():
+    '''Preamble inserted to record mark the current set of hardware instances.'''
+    return len(_instances)
+
+def postamble_func(index, myhdl_instances):
+    '''Postamble inserted to return newly-created instances in a chunk.'''
+    global _instances
+
+    # Build a list of unique instances created by the chunked function.
+    chunk_insts = _instances[index:] + myhdl_instances
+    chunk_insts = sorted(chunk_insts, key=id)
+    chunk_insts = [k for k,_ in itertools.groupby(chunk_insts)]
+
+    # Append the list of instances to the global _instances list.
+    _instances = _instances[:index]
+    _instances.append(chunk_insts)
+
+    # Return the list of instances.
+    return chunk_insts
 
 def chunk(f):
     '''
@@ -236,7 +238,7 @@ def chunk(f):
 class Wire(SignalType):
     '''A one-bit signal.'''
     def __init__(self, init_val=0, name=None):
-        super().__init__(bool(init_val))
+        super(Wire, self).__init__(bool(init_val))
         if name:
             Peeker(self, name)
 
@@ -250,7 +252,7 @@ def _bus_xfer(a, b):
 class Bus(SignalType):
     '''A multi-bit signal.'''
     def __init__(self, width=1, init_val=0, name=None, vtype=modbv):
-        super().__init__(vtype(init_val)[width:])
+        super(Bus, self).__init__(vtype(init_val)[width:])
         self.width = width
         self.i_wires = None
         self.o_wires = None

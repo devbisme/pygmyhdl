@@ -5,7 +5,7 @@ initialize()
 @chunk
 def blinker(clk_i, led_o):
     cnt = Bus(23, name='cnt')
-    tap = 2
+    tap = 22
 
     @seq_logic(clk_i.posedge)
     def logic_b():
