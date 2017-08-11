@@ -238,7 +238,7 @@ def chunk(f):
 class Wire(SignalType):
     '''A one-bit signal.'''
     def __init__(self, init_val=0, name=None):
-        super(Wire, self).__init__(bool(init_val))
+        super(Wire, self).__init__(bool(init_val)) # Don't use super(). Fails on Python 2.
         if name:
             Peeker(self, name)
 
@@ -252,7 +252,7 @@ def _bus_xfer(a, b):
 class Bus(SignalType):
     '''A multi-bit signal.'''
     def __init__(self, width=1, init_val=0, name=None, vtype=modbv):
-        super(Bus, self).__init__(vtype(init_val)[width:])
+        super(Bus, self).__init__(vtype(init_val)[width:]) # Don't use super(). Fails on Python 2.
         self.width = width
         self.i_wires = None
         self.o_wires = None
