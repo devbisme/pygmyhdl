@@ -23,7 +23,7 @@
 # THE SOFTWARE.
 
 from __future__ import print_function
-#from __future__ import unicode_literals
+from __future__ import unicode_literals
 from __future__ import division
 from __future__ import absolute_import
 from builtins import super
@@ -47,6 +47,7 @@ from myhdlpeek import *
 if USING_PYTHON3:
     import byteplay3 as bp
 else:
+    del unicode_literals  # This package screws-up byteplay in Python 2.
     import byteplay as bp
 
 
@@ -71,6 +72,8 @@ try:
     from types import FunctionType
 
     def comb_logic(func):
+        '''Decorator for combinational logic functions in PygMyHDL.
+           Create a combinational logic block and store it on the instance list.'''
         callinfo = myhdlinst._getCallInfo()
         if not isinstance(func, FunctionType):
             raise myhdlcomb.AlwaysCombError(myhdlcomb._error.ArgType)
@@ -83,6 +86,8 @@ try:
         return c
 
     def seq_logic(edge, reset=None):
+        '''Decorator for sequential (clocked) logic functions in PygMyHDL.
+           Creates a sequential logic block and stores it on the instance list.'''
         callinfo = myhdlinst._getCallInfo()
         sigargs = []
         if not isinstance(edge, myhdlsig._WaiterList):
@@ -116,7 +121,8 @@ except ImportError:
     # doing the logic function decorators.
 
     def comb_logic(f):
-        '''Create a combinational logic block and store it on the instance list.'''
+        '''Decorator for combinational logic functions in PygMyHDL.
+           Create a combinational logic block and store it on the instance list.'''
         def comb_func(f):
             return always_comb(f)
         inst = comb_func(f)
@@ -124,7 +130,8 @@ except ImportError:
         return inst
 
     def seq_logic(trigger):
-        '''Create a sequential logic block and store it on the instance list.'''
+        '''Decorator for sequential (clocked) logic functions in PygMyHDL.
+           Creates a sequential logic block and stores it on the instance list.'''
         def seq_logic_decorator(f):
             def seq_func(f):
                 return always_seq(trigger,None)(f)
@@ -162,11 +169,11 @@ else:
         return g
 
 def preamble_func():
-    '''Preamble inserted to record mark the current set of hardware instances.'''
+    '''Preamble inserted to mark the hardware instantiated previous to this chunk.'''
     return len(_instances)
 
 def postamble_func(index, myhdl_instances):
-    '''Postamble inserted to return newly-created instances in a chunk.'''
+    '''Postamble inserted to hardware instantiated in this chunk.'''
     global _instances
 
     # Build a list of unique instances created by the chunked function.
@@ -263,7 +270,7 @@ class Bus(SignalType):
     def i(self):
         '''Return a list of wires that will drive this Bus object.'''
         if not self.i_wires:
-            self.i_wires = [Wire(self.val[i]) for i in range(self.width)]
+            self.i_wires = IWireBus([Wire(self.val[i]) for i in range(self.width)])
             wires_bus = ConcatSignal(*reversed(self.i_wires))
             _bus_xfer(wires_bus, self)
         return self.i_wires
@@ -272,8 +279,66 @@ class Bus(SignalType):
     def o(self):
         '''Return a list of wires carrying the bit values of the Bus wires.'''
         if not self.o_wires:
-            self.o_wires = [self(i) for i in range(self.width)]
+            self.o_wires = OWireBus([self(i) for i in range(self.width)])
         return self.o_wires
+
+class WireBus(list):
+    '''List of Wire objects.'''
+    def __init__(self, *args, **kwargs):
+        super(WireBus, self).__init__(*args, **kwargs)
+
+    def __getitem__(self, slice_):
+        if isinstance(slice_, slice):
+            slice_ = slice(slice_.stop, slice_.start)
+            return type(self)(super(WireBus, self).__getitem__(slice_))
+        elif isinstance(slice_, int):
+            return super(WireBus, self).__getitem__(slice_)
+
+class OWireBus(WireBus):
+    '''List of output Wire objects driven from a Bus object.'''
+    def __init__(self, *args, **kwargs):
+        super(OWireBus, self).__init__(*args, **kwargs)
+
+    @property
+    def o(self):
+        return self
+
+    @property
+    def i(self):
+        raise Exception('Attempting to get inputs from the outputs of a Bus.')
+
+class IWireBus(WireBus):
+    '''List of input Wire objects that drive a Bus object.'''
+    def __init__(self, *args, **kwargs):
+        super(IWireBus, self).__init__(*args, **kwargs)
+
+    @property
+    def i(self):
+        return self
+
+    @property
+    def o(self):
+        raise Exception('Attempting to get outputs from the inputs of a Bus.')
+
+    def __setitem__(self, slice_, value):
+        '''Drive selected bits of a bus to a value.'''
+
+        # Turn integer index into a slice object.
+        if isinstance(slice_, int):
+            slice_ = slice(slice_+1, slice_)  # single bit slice.
+
+        # Convert value into a bit-vector object.
+        bv = intbv(value)
+
+        def set_wire(value, wire):
+            '''Simple logic block to drive a wire with a bit value.'''
+            @comb_logic
+            def logic():
+                wire.next = value
+
+        # Set individual wires in this bus to bit values.
+        for indx, wire in enumerate(self[slice_]):
+            set_wire(Signal(bv[indx]), wire)
 
 
 ############## Simulation. #################
@@ -324,18 +389,20 @@ def random_sim(*signals, **kwargs):
     '''Run a simulation with a set of random test vectors.'''
     simulate(random_test(*signals, **kwargs))
     
-# def exhaustive_test(*signals, **kwargs):
-    # '''Generate all possible test vectors for a set of signals.'''
-    # dly = kwargs.get('dly', 1)
-    # if len(signals) == 0:
-        # yield delay(dly)
-    # else:
-        # for signals[0].next in range(get_min(signals[0]), get_max(signals[0])):
-            # yield from exhaustive_test(*signals[1:])
+def exhaustive_test(*signals, **kwargs):
+    '''Generate all possible test vectors for a set of signals.'''
+    dly = kwargs.get('dly', 1)
+    if len(signals) == 0:
+        yield delay(dly)
+    else:
+        for signals[0].next in range(get_min(signals[0]), get_max(signals[0])):
+            #yield from exhaustive_test(*signals[1:])
+            for d in exhaustive_test(*signals[1:]):
+                yield d
 
-# def exhaustive_sim(*signals, **kwargs):
-    # '''Run a simulation with an exhaustive set of test vectors.'''
-    # simulate(exhaustive_test(*signals, **kwargs))
+def exhaustive_sim(*signals, **kwargs):
+    '''Run a simulation with an exhaustive set of test vectors.'''
+    simulate(exhaustive_test(*signals, **kwargs))
 
 def clk_test(clk, **kwargs):
     '''Strobe a clock signal for a number of cycles.'''
