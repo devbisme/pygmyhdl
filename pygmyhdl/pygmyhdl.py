@@ -22,6 +22,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+'''
+PygMyHDL main code module.
+'''
+
 from __future__ import print_function
 from __future__ import unicode_literals
 from __future__ import division
@@ -301,10 +305,12 @@ class OWireBus(WireBus):
 
     @property
     def o(self):
+        '''Get the output bus of an output bus which is the bus itself.'''
         return self
 
     @property
     def i(self):
+        '''Raise an exception if trying to get an input bus from an output bus.'''
         raise Exception('Attempting to get inputs from the outputs of a Bus.')
 
 class IWireBus(WireBus):
@@ -314,10 +320,12 @@ class IWireBus(WireBus):
 
     @property
     def i(self):
+        '''Get the input bus of an input bus which is the bus itself.'''
         return self
 
     @property
     def o(self):
+        '''Raise an exception if trying to get an output bus from an input bus.'''
         raise Exception('Attempting to get outputs from the inputs of a Bus.')
 
     def __setitem__(self, slice_, value):
@@ -369,43 +377,72 @@ def simulate(*modules):
     # Simulate the set of instances.
     Simulation(*all_modules).run()
 
-def get_max(signal):
+def _get_max(signal):
+    '''Get maximum value of a signal.'''
     return signal.max or 2**len(signal)
 
-def get_min(signal):
+def _get_min(signal):
+    '''Get minimum value of a signal.'''
     return signal.min or 0
 
-def random_test(*signals, **kwargs):
-    '''Generate a set of test vectors with random values assigned to the signals.'''
+def _random_test(*signals, **kwargs):
+    '''
+    Generate a set of test vectors with random values assigned to the signals.
+    Parameters:
+        signals: One or more signals.
+        num_tests: Number of random test vectors to simulate.
+        dly: Time delay between changes of the clock signal.
+    '''
     dly = kwargs.get('dly', 1)
     num_tests = kwargs.get('num_tests', 10)
     for _ in range(num_tests):
         for sig in signals:
             # Assign a random value within the allowable range of this signal.
-            sig.next = random.randrange(get_min(sig), get_max(sig))
+            sig.next = random.randrange(_get_min(sig), _get_max(sig))
         yield delay(dly)
 
 def random_sim(*signals, **kwargs):
-    '''Run a simulation with a set of random test vectors.'''
-    simulate(random_test(*signals, **kwargs))
+    '''
+    Run a simulation with a set of random test vectors.
+    Parameters:
+        signals: One or more signals.
+        num_tests: Number of random test vectors to simulate.
+        dly: Time delay between changes of the clock signal.
+    '''
+    simulate(_random_test(*signals, **kwargs))
     
-def exhaustive_test(*signals, **kwargs):
-    '''Generate all possible test vectors for a set of signals.'''
+def _exhaustive_test(*signals, **kwargs):
+    '''
+    Generate all possible test vectors for a set of signals.
+    Parameters:
+        signals: One or more signals.
+        dly: Time delay between changes of the clock signal.
+    '''
     dly = kwargs.get('dly', 1)
     if len(signals) == 0:
         yield delay(dly)
     else:
-        for signals[0].next in range(get_min(signals[0]), get_max(signals[0])):
+        for signals[0].next in range(_get_min(signals[0]), _get_max(signals[0])):
             #yield from exhaustive_test(*signals[1:])
-            for d in exhaustive_test(*signals[1:]):
+            for d in _exhaustive_test(*signals[1:]):
                 yield d
 
 def exhaustive_sim(*signals, **kwargs):
-    '''Run a simulation with an exhaustive set of test vectors.'''
-    simulate(exhaustive_test(*signals, **kwargs))
+    '''
+    Run a simulation with an exhaustive set of test vectors.
+    Parameters:
+        signals: One or more signals.
+        dly: Time delay between changes of the clock signal.
+    '''
+    simulate(_exhaustive_test(*signals, **kwargs))
 
-def clk_test(clk, **kwargs):
-    '''Strobe a clock signal for a number of cycles.'''
+def _clk_test(clk, **kwargs):
+    '''
+    Strobe a clock signal for a number of cycles.
+    Parameters:
+        num_cycles: Number of clock cycles to execute.
+        dly: Time delay between changes of the clock signal.
+    '''
     dly = kwargs.get('dly', 1)
     num_cycles = kwargs.get('num_cycles', 10)
     for _ in range(num_cycles):
@@ -415,8 +452,13 @@ def clk_test(clk, **kwargs):
         yield delay(dly)
 
 def clk_sim(clk, **kwargs):
-    '''Run a simulation for a number of clock cycles.'''
-    simulate(clk_test(clk, **kwargs))
+    '''
+    Run a simulation for a number of clock cycles.
+    Parameters:
+        num_cycles: Number of clock cycles to execute.
+        dly: Time delay between changes of the clock signal.
+    '''
+    simulate(_clk_test(clk, **kwargs))
 
 def vector_test(*vectors, **kwargs):
     dly = kwargs.get('dly', 1)

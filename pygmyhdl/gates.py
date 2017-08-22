@@ -22,6 +22,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
+'''
+Some basic logic gates implemented in PygMyHDL.
+'''
+
 
 from pygmyhdl import *
 
@@ -29,28 +33,28 @@ from pygmyhdl import *
 
 @chunk
 def inv_g(o, a):
-    '''Inverter (NOT gate).'''
+    '''Single-bit inverter (NOT gate).'''
     @comb_logic
     def logic():
         o.next = not a
 
 @chunk
 def and_g(o, a, b, c=Wire(1), d=Wire(1), e=Wire(1)):
-    '''AND gate.'''
+    '''AND gate for up to 5 single-bit inputs.'''
     @comb_logic
     def logic():
         o.next = a & b & c & d & e
 
 @chunk
 def or_g(o, a, b, c=Wire(0), d=Wire(0), e=Wire(0)):
-    '''OR gate.'''
+    '''OR gate for up to 5 single-bit inputs.'''
     @comb_logic
     def logic():
         o.next = a | b | c | d | e
 
 @chunk
 def xor_g(o, a, b, c=Wire(0), d=Wire(0), e=Wire(0)):
-    '''XOR gate.'''
+    '''XOR gate for up to 5 single-bit inputs.'''
     @comb_logic
     def logic():
         o.next = a ^ b ^ c ^ d ^ e
