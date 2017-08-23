@@ -246,19 +246,19 @@ def chunk(f):
 
 ############## Wire and Bus object classes. #################
 
+@chunk
+def _sig_xfer(a, b):
+    '''A simple hardware chunk to transfer one signal to another.'''
+    @comb_logic
+    def logic():
+        b.next = a
+
 class Wire(SignalType):
     '''A one-bit signal.'''
     def __init__(self, init_val=0, name=None):
         super(Wire, self).__init__(bool(init_val)) # Don't use super(). Fails on Python 2.
         if name:
             Peeker(self, name)
-
-@chunk
-def _bus_xfer(a, b):
-    '''A simple hardware chunk to transfer one bus to another.'''
-    @comb_logic
-    def logic():
-        b.next = a
 
 class Bus(SignalType):
     '''A multi-bit signal.'''
@@ -276,7 +276,7 @@ class Bus(SignalType):
         if not self.i_wires:
             self.i_wires = IWireBus([Wire(self.val[i]) for i in range(self.width)])
             wires_bus = ConcatSignal(*reversed(self.i_wires))
-            _bus_xfer(wires_bus, self)
+            _sig_xfer(wires_bus, self)
         return self.i_wires
 
     @property
@@ -336,17 +336,14 @@ class IWireBus(WireBus):
             slice_ = slice(slice_+1, slice_)  # single bit slice.
 
         # Convert value into a bit-vector object.
-        bv = intbv(value)
-
-        def set_wire(value, wire):
-            '''Simple logic block to drive a wire with a bit value.'''
-            @comb_logic
-            def logic():
-                wire.next = value
+        try:
+            bv = intbv(value.val)  # Do this if the value iss a Signal.
+        except AttributeError:
+            bv = intbv(value)  # Do this if the value is an integer.
 
         # Set individual wires in this bus to bit values.
         for indx, wire in enumerate(self[slice_]):
-            set_wire(Signal(bv[indx]), wire)
+            _sig_xfer(Signal(bv[indx]), wire)
 
 
 ############## Simulation. #################
@@ -460,10 +457,11 @@ def clk_sim(clk, **kwargs):
     '''
     simulate(_clk_test(clk, **kwargs))
 
-def vector_test(*vectors, **kwargs):
+def _vector_test(*vectors, **kwargs):
     dly = kwargs.get('dly', 1)
     try:
-        num_cycles = max([len(v)-1 for v in vectors])
+        import pdb; pdb.set_trace()
+        num_cycles = max([len(v[1]) for v in vectors])
     except ValueError:
         num_cycles = 0
     num_cycles = kwargs.get('num_cycles', num_cycles)
@@ -472,10 +470,9 @@ def vector_test(*vectors, **kwargs):
         for v in vectors:
             try:
                 v[0].next = v[1][i]
-                keep_going = True
             except IndexError:
                 v[0].next = v[1][-1]
         yield delay(1)
 
 def vector_sim(*vectors, **kwargs):
-    simulate(vector_test(*vectors, **kwargs))
+    simulate(_vector_test(*vectors, **kwargs))
