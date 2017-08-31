@@ -28,24 +28,20 @@ with open('README.rst') as readme_file:
 with open('HISTORY.rst') as history_file:
     history = history_file.read().replace('.. :changelog:', '')
 
+requirements = [
+        # Put package requirements here
+        'future >= 0.15.0',
+        'myhdl',
+        'myhdlpeek',
+    ]
 if USING_PYTHON3:
-    requirements = [
-        # Put package requirements here
-        'future >= 0.15.0',
+    requirements.extend([
         'byteplay3',
-        'myhdl',
-        'myhdlpeek',
-        'apio',
-    ]
+    ])
 else:
-    requirements = [
-        # Put package requirements here
-        'future >= 0.15.0',
+    requirements.extend([
         'byteplay',
-        'myhdl',
-        'myhdlpeek',
-        'apio',
-    ]
+    ])
 
 test_requirements = [
     # Put package test requirements here
@@ -55,7 +51,7 @@ test_requirements = [
 setup(
     name='pygmyhdl',
     version = version,
-    description="Pygmy version of MyHDL.",
+    description="MyHDL hardware design language encased in the tasty PygMyHDL wrapper.",
     long_description=readme + '\n\n' + history,
     author = author,
     author_email= email,
@@ -73,8 +69,10 @@ setup(
     zip_safe=False,
     keywords='pygmyhdl',
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
+        'Intended Audience :: Science/Research',
+        'Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 2.7',

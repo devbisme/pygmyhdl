@@ -27,7 +27,7 @@ PygMyHDL main code module.
 '''
 
 from __future__ import print_function
-from __future__ import unicode_literals
+#from __future__ import unicode_literals   # Messes up byteplay on Python 2.
 from __future__ import division
 from __future__ import absolute_import
 from builtins import super
@@ -51,7 +51,6 @@ from myhdlpeek import *
 if USING_PYTHON3:
     import byteplay3 as bp
 else:
-    del unicode_literals  # This package screws-up byteplay in Python 2.
     import byteplay as bp
 
 
@@ -458,9 +457,16 @@ def clk_sim(clk, **kwargs):
     simulate(_clk_test(clk, **kwargs))
 
 def _vector_test(*vectors, **kwargs):
+    '''
+    Apply vectors of values to signals.
+    Parameters:
+        vectors: Each vector is a two-element list with a Signal as the first
+            element and a list of values as the second element.
+        num_cycles: Number of clock cycles to execute.
+        dly: Time delay between changes of the clock signal.
+    '''
     dly = kwargs.get('dly', 1)
     try:
-        import pdb; pdb.set_trace()
         num_cycles = max([len(v[1]) for v in vectors])
     except ValueError:
         num_cycles = 0
