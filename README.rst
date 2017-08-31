@@ -49,9 +49,8 @@ Unfortunately, the Github Notebook viewer doesn't render the waveform displays
 so you'll have to download and run the notebooks locally or click on the static HTML
 link to see what PygMyHDL can do.
 
-* Simple LED Blinker: `[Notebook1] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/blinker/fastest_easiest_fpga_blinker_ever.ipynb>`_ `[HTML1] <http://www.xess.com/static/media/pages/pygmyhdl/examples/blinker/fastest_easiest_fpga_blinker_ever.html>`_
+* Simple LED Blinker: `[Notebook1] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/blinker/fastest_easiest_FPGA_blinker_ever.ipynb>`_ `[HTML1] <http://www.xess.com/static/media/pages/pygmyhdl/examples/blinker/fastest_easiest_FPGA_blinker_ever.html>`_
 
 |
 
 * Free software: MIT license
-* Documentation: http://xesscorp.github.io/pygmyhdl
