@@ -11770,7 +11770,6 @@ div#notebook {
 <script src="http://wavedrom.com/skins/default.js" type="text/javascript"></script>
 <script src="http://wavedrom.com/wavedrom.min.js" type="text/javascript"></script>
 <body onload="WaveDrom.ProcessAll()">
-<body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
@@ -12172,18 +12171,18 @@ it takes a clock as input and generates a single output that turns an LED on and
 <p><img alt="Highest level of abstraction for an LED blinker." src="lvl_led_blinker.png" width=500/></p>
 <p>At the next level of abstraction, we already know the blinker is built from an $N$-bit
 counter with the LED output driven from the counter's MSB.</p>
-<p>&lt;img = alt="Second highest level of abstraction for an LED blinker." src="lvl_counter.png" width=500/&gt;</p>
+<p><img alt="Second highest level of abstraction for an LED blinker." src="lvl_counter.png" width=500/></p>
 <p>Going down another level, a counter can be constructed from an $N$-bit
 <a href="https://en.wikibooks.org/wiki/Digital_Circuits/Registers_and_Counters">register</a>
 and an $N$-bit <a href="https://en.wikipedia.org/wiki/Adder_(electronics">binary adder</a>).
 The register holds a value $V$ and, on every pulse of the clock input, that value
 is replaced by $V + 1$.</p>
-<p>&lt;img = alt="Third highest level of abstraction for an LED blinker." src="lvl_reg_adder.png" width=550/&gt;</p>
+<p><img alt="Third highest level of abstraction for an LED blinker." src="lvl_reg_adder.png" width=550/></p>
 <p>The register consists of $N$ individual
 <a href="http://hyperphysics.phy-astr.gsu.edu/hbase/Electronic/Dflipflop.html">D flip-flops</a>
 each of which stores a single bit of the register value that is updated when there is a rising
 edge of the clock input:</p>
-<p>&lt;img = alt="Individual bits of a register." src="lvl_dff.png" width=400/&gt;</p>
+<p><img alt="Individual bits of a register." src="lvl_dff.png" width=400/></p>
 <p>The adder is also composed of $N$ subcomponents called
 <a href="http://www.electronics-tutorials.ws/combination/comb_7.html">full-adder bits</a>.
 The $k$-th full-adder bit takes the $k$-th bit from each of the numbers to be added along with
@@ -12373,7 +12372,7 @@ register input and see if those values propagate to the register output:</p>
 
 
 <div class="output_html rendered_html output_subarea ">
-<div><script type="WaveDrom">{"signal": [{"name": "clk", "wave": "01010101010101010101"}, {"name": "data_in", "wave": "=.=.=.=.=.=.=.=.=.=.", "data": ["220", "c0", "52", "01", "a5", "3e", "38", "ce", "c2", "ec"]}, {"name": "data_out", "wave": "==.=.=.=.=.=.=.=.=.=", "data": ["0", "dc", "c0", "52", "01", "a5", "3e", "38", "ce", "c2", "236"]}]}</script></div>
+<div><script type="WaveDrom">{"signal": [{"wave": "01010101010101010101", "name": "clk"}, {"wave": "=.=.=.=.=.=.=.=.=.=.", "name": "data_in", "data": ["74", "14", "c3", "3a", "d1", "65", "6f", "83", "38", "a1"]}, {"wave": "==.=.=.=.=.=.=.=.=.=", "name": "data_out", "data": ["0", "4a", "14", "c3", "3a", "d1", "65", "6f", "83", "38", "161"]}]}</script></div>
 </div>
 
 </div>
@@ -12386,10 +12385,10 @@ register input and see if those values propagate to the register output:</p>
 
 
 
-<div id="f9f468fe-b9bf-4235-bbf6-69d1bc4feb66"></div>
+<div id="7fda5bdd-f397-4a77-8075-2ac99ec60d3e"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#f9f468fe-b9bf-4235-bbf6-69d1bc4feb66');
+var element = $('#7fda5bdd-f397-4a77-8075-2ac99ec60d3e');
 $.getScript("http://wavedrom.com/wavedrom.min.js", function () {
 $.getScript("http://wavedrom.com/skins/default.js", function () {
 WaveDrom.ProcessAll();});
@@ -12637,26 +12636,26 @@ Instead, I'll just check the adder's output for a few randomly-selected inputs:<
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>  Time    a    b    sum
 ------  ---  ---  -----
-     0   85   43    128
-     1   12  233    245
-     2   26   31     57
-     3  152  199     95
-     4  254    6      4
-     5  117   45    162
-     6   43  184    227
-     7    8  221    229
-     8   44   60    104
-     9  156  182     82
-    10  159  192     95
-    11  197   26    223
-    12   94   84    178
-    13   40  183    223
-    14   85   66    151
-    15  148   66    214
-    16   90   30    120
-    17  230   62     36
-    18  146  111      1
-    19  137  161     42
+     0  108  114    222
+     1    9    0      9
+     2  119  203     66
+     3   32  201    233
+     4   32   91    123
+     5  167  216    127
+     6  192  163     99
+     7  243   53     40
+     8  167  130     41
+     9  222   89     55
+    10    3   58     61
+    11  255   38     37
+    12   67    6     73
+    13  254   80     78
+    14  103  213     60
+    15  125   71    196
+    16  120   85    205
+    17    7  162    169
+    18  215   11    226
+    19   84  252     80
 </pre>
 </div>
 </div>
@@ -12813,7 +12812,7 @@ that to the adder's output. For example, $(72 + 213) \bmod{256} = (285) \bmod{25
 
 
 <div class="output_html rendered_html output_subarea ">
-<div><script type="WaveDrom">{"signal": [{"name": "clk", "wave": "01010101010101010101010101010101"}, {"name": "cnt", "wave": "==.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=", "data": ["0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0"]}, {"name": "led", "wave": "0......1.......0.......1.......0"}]}</script></div>
+<div><script type="WaveDrom">{"signal": [{"wave": "01010101010101010101010101010101", "name": "clk"}, {"wave": "==.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=", "name": "cnt", "data": ["0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0"]}, {"wave": "0......1.......0.......1.......0", "name": "led"}]}</script></div>
 </div>
 
 </div>
@@ -12826,10 +12825,10 @@ that to the adder's output. For example, $(72 + 213) \bmod{256} = (285) \bmod{25
 
 
 
-<div id="a340a241-ad02-4cb7-98a2-e968ed6f4176"></div>
+<div id="a1b79757-de4b-4f2e-bf5d-e201d0dc252c"></div>
 <div class="output_subarea output_javascript ">
 <script type="text/javascript">
-var element = $('#a340a241-ad02-4cb7-98a2-e968ed6f4176');
+var element = $('#a1b79757-de4b-4f2e-bf5d-e201d0dc252c');
 $.getScript("http://wavedrom.com/wavedrom.min.js", function () {
 $.getScript("http://wavedrom.com/skins/default.js", function () {
 WaveDrom.ProcessAll();});
@@ -12909,55 +12908,55 @@ c:\python35-32\lib\site-packages\myhdl\conversion\_toVerilog.py:348: ToVerilogWa
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;myhdl._always_comb._AlwaysComb at 0x5e6fed0&gt;,
- [[[&lt;myhdl._always_comb._AlwaysComb at 0x5675290&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e1eab0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e1ec70&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e1edf0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e1ee30&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e1ef70&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e1efb0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60410&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60570&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60750&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60330&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60630&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60bf0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60cd0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60db0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e605f0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e608d0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60a30&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60b10&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60150&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60ff0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60770&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e609b0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60c30&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x5e60a70&gt;]],
-  [[&lt;myhdl._always_comb._AlwaysComb at 0x5e6f090&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f570&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f190&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f350&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f4f0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f610&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f690&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f6d0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f750&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f7d0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f850&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f8d0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f950&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fd30&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f9d0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6f6b0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fa10&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fab0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fb50&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fbf0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fc90&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fdd0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5e6fe70&gt;]]]]</pre>
+<pre>[&lt;myhdl._always_comb._AlwaysComb at 0x5ad0f50&gt;,
+ [[[&lt;myhdl._always_comb._AlwaysComb at 0x54cb210&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x580fbb0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x580fbf0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x580fdf0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x580ff50&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x580ff70&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x580fab0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d0f0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d470&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d230&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d070&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d1b0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d630&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d830&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d3d0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d670&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d810&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d6d0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d390&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d7b0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d890&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d910&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584de70&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584d3f0&gt;],
+   [&lt;myhdl._always_comb._AlwaysComb at 0x584dff0&gt;]],
+  [[&lt;myhdl._always_comb._AlwaysComb at 0x5ad0070&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0250&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0370&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad02f0&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0130&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad03b0&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad04b0&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0430&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0490&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0510&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad05b0&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0690&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0970&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0710&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0650&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad06f0&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0630&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0610&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0470&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad07f0&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0910&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0a10&gt;],
+   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0ab0&gt;]]]]</pre>
 </div>
 
 </div>
