@@ -1,5 +1,5 @@
-To make the HTML files exported from Jupyter displayable, add the following lines
-right before the <body> tag:
+To make the HTML files exported from Jupyter displayable,
+replace the <body> tag with the following lines:
 
 <script src="http://wavedrom.com/skins/default.js" type="text/javascript"></script>
 <script src="http://wavedrom.com/wavedrom.min.js" type="text/javascript"></script>
