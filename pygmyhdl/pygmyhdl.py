@@ -265,7 +265,7 @@ class Bus(SignalType):
         super(Bus, self).__init__(vtype(init_val)[width:]) # Don't use super(). Fails on Python 2.
         self.width = width
         self.i_wires = None
-        self.o_wires = None
+        self.o_bus = None
         if name:
             Peeker(self, name)
 
@@ -280,27 +280,14 @@ class Bus(SignalType):
 
     @property
     def o(self):
-        '''Return a list of wires carrying the bit values of the Bus wires.'''
-        if not self.o_wires:
-            self.o_wires = OWireBus([self(i) for i in range(self.width)])
-        return self.o_wires
+        if not self.o_bus:
+            self.o_bus = OBus(self)
+        return self.o_bus
 
-class WireBus(list):
-    '''List of Wire objects.'''
-    def __init__(self, *args, **kwargs):
-        super(WireBus, self).__init__(*args, **kwargs)
-
-    def __getitem__(self, slice_):
-        if isinstance(slice_, slice):
-            slice_ = slice(slice_.stop, slice_.start)
-            return type(self)(super(WireBus, self).__getitem__(slice_))
-        elif isinstance(slice_, int):
-            return super(WireBus, self).__getitem__(slice_)
-
-class OWireBus(WireBus):
+class OBus():
     '''List of output Wire objects driven from a Bus object.'''
-    def __init__(self, *args, **kwargs):
-        super(OWireBus, self).__init__(*args, **kwargs)
+    def __init__(self, bus):
+        self.parent = bus
 
     @property
     def o(self):
@@ -312,7 +299,17 @@ class OWireBus(WireBus):
         '''Raise an exception if trying to get an input bus from an output bus.'''
         raise Exception('Attempting to get inputs from the outputs of a Bus.')
 
-class IWireBus(WireBus):
+    def __getitem__(self, slice_):
+        '''Handle getting bus slices or individual bits.'''
+        if isinstance(slice_, slice):
+            start, stop, step = slice_.indices(len(self.parent))
+            return self.parent(start, stop)
+        elif isinstance(slice_, int):
+            return self.parent(slice_)
+        else:
+            raise Exception("Bus indexing requires an integer or A:B slice.")
+
+class IWireBus(list):
     '''List of input Wire objects that drive a Bus object.'''
     def __init__(self, *args, **kwargs):
         super(IWireBus, self).__init__(*args, **kwargs)
