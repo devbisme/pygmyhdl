@@ -333,7 +333,7 @@ class IWireBus(list):
 
         # Convert value into a bit-vector object.
         try:
-            bv = intbv(value.val)  # Do this if the value iss a Signal.
+            bv = intbv(value.val)  # Do this if the value is a Signal.
         except AttributeError:
             bv = intbv(value)  # Do this if the value is an integer.
 
