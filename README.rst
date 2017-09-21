@@ -58,8 +58,8 @@ link to see what PygMyHDL can do.
   `[HTML2] <http://www.xess.com/static/media/pages/pygmyhdl/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.html>`_
 
 * Pulse Width Modulators:
-  `[Notebook] <https://github.com/xesscorp/myhdlpeek/blob/master/examples/3_pwm/pwm.ipynb>`_ 
-  `[HTML] <http://www.xess.com/static/media/pages/pygmyhdl/examples/2_pwm/pwm.html>`_
+  `[Notebook] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
+  `[HTML] <http://www.xess.com/static/media/pages/pygmyhdl/examples/3_pwm/pwm.html>`_
 
 |
 
