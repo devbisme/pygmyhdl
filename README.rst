@@ -58,8 +58,12 @@ link to see what PygMyHDL can do.
   `[HTML2] <http://www.xess.com/static/media/pages/pygmyhdl/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.html>`_
 
 * Pulse Width Modulators:
-  `[Notebook] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
-  `[HTML] <http://www.xess.com/static/media/pages/pygmyhdl/examples/3_pwm/pwm.html>`_
+  `[Notebook3] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
+  `[HTML3] <http://www.xess.com/static/media/pages/pygmyhdl/examples/3_pwm/pwm.html>`_
+
+* Block RAM Party:
+  `[Notebook4] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb>`_ 
+  `[HTML4] <http://www.xess.com/static/media/pages/pygmyhdl/examples/4_blockram/block_ram_party.html>`_
 
 |
 
