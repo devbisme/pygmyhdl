@@ -243,7 +243,7 @@ def chunk(f):
     return _func_copy(f, f_code.to_code())
 
 
-############## Wire and Bus object classes. #################
+############## Wire, Bus, and State object classes. #################
 
 @chunk
 def _sig_xfer(a, b):
@@ -340,6 +340,41 @@ class IWireBus(list):
         # Set individual wires in this bus to bit values.
         for indx, wire in enumerate(self[slice_]):
             _sig_xfer(Signal(bv[indx]), wire)
+
+class State(SignalType):
+    '''Stores state of finite-state machines.'''
+    def __init__(self, *args, **kwargs):
+
+        # Look for the init_state of the state variable and remove it from the list.
+        # The initial state will be given by the keyword argument or the 1st positional argument.
+        self.init_state = kwargs.pop('init_state', args[0])
+
+        # Get the name for the Peeker assigned to monitor this state variable.
+        name = kwargs.pop('name', None)
+
+        # Create a state variable from a list of state names as strings, or
+        # from an existing state variable or state type.
+        state_name_args = [arg for arg in args if isinstance(arg, type(''))]
+        state_type_args = [arg for arg in args if isinstance(arg, (State, EnumType))]
+        if state_type_args:
+            if isinstance(state_type_args[0], State):
+                self.t = state_type_args[0].t
+            elif isinstance(state_type_args[0], EnumType):
+                self.t = state_type_args[0]
+            else:
+                raise Exception('Creating a state variable from a non-state type object!')
+        elif state_name_args:
+            self.t = enum(*state_name_args, **kwargs)
+        else:
+            raise Exception('No state information provided to create a state variable!')
+        
+        # The actual state variable is created here.
+        super(State, self).__init__(getattr(self.t, self.init_state))
+
+        # Create a Peeker for the state variable if the name keyword argument was given.
+        # Do this only after the state variable was created.
+        if name:
+            Peeker(self, name)
 
 
 ############## Simulation. #################
