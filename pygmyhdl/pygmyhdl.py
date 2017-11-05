@@ -243,7 +243,7 @@ def chunk(f):
     return _func_copy(f, f_code.to_code())
 
 
-############## Wire, Bus, and State object classes. #################
+############## Wire, Bus, and State classes. #################
 
 @chunk
 def _sig_xfer(a, b):
@@ -344,6 +344,26 @@ class IWireBus(list):
 class State(SignalType):
     '''Stores state of finite-state machines.'''
     def __init__(self, *args, **kwargs):
+        '''
+        Create a state variable like this: sv = State('S1', 'S2', 'S3', ...).
+        The initial state for sv will be sv.s.S1.
+        You can set the state like this: sv.next = sv.s.S2.
+        You can compare the state like this: sv == sv.s.S3.
+
+        Inputs:
+            *args: Positional arguments that are distinguished by type:
+                       strings: Names of the states of the FSM.
+                       State: Another State object that will be used to create
+                              this State object with the same states.
+                       EnumType: An object created by the MyHDL enum function.
+            **kwargs: Keyword arguments that are passed to the MyHDL enum function
+                      except for:
+                          init_state: A string indicating the initial state for
+                                      this state variable. If omitted, the first
+                                      string-type positional argument is used.
+                          name: The name assigned to a Peeker object for this
+                                state variable. If omitted, no Peeker is assigned.
+        '''
 
         # Look for the init_state of the state variable and remove it from the list.
         # The initial state will be given by the keyword argument or the 1st positional argument.
@@ -358,21 +378,21 @@ class State(SignalType):
         state_type_args = [arg for arg in args if isinstance(arg, (State, EnumType))]
         if state_type_args:
             if isinstance(state_type_args[0], State):
-                self.t = state_type_args[0].t
+                self.s = state_type_args[0].s
             elif isinstance(state_type_args[0], EnumType):
-                self.t = state_type_args[0]
+                self.s = state_type_args[0]
             else:
                 raise Exception('Creating a state variable from a non-state type object!')
         elif state_name_args:
-            self.t = enum(*state_name_args, **kwargs)
+            self.s = enum(*state_name_args, **kwargs)
         else:
             raise Exception('No state information provided to create a state variable!')
         
         # The actual state variable is created here.
-        super(State, self).__init__(getattr(self.t, self.init_state))
+        super(State, self).__init__(getattr(self.s, self.init_state))
 
         # Create a Peeker for the state variable if the name keyword argument was given.
-        # Do this only after the state variable was created.
+        # Do this only after the state variable has been created.
         if name:
             Peeker(self, name)
 
