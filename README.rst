@@ -23,6 +23,10 @@ PygMyHDL adds the following features to MyHDL:
 * ``Bus`` objects have ``.o`` and ``.i`` properties that are used to get the value on a
   bus (that's the ``.o`` property) and to drive values onto a bus (using the ``.i`` property).
 
+* ``State`` objects are used to declare state variables for finite-state machines.
+  Each ``State`` object also stores all the defined states in its ``s`` attribute
+  for use in making comparisons to states or updating state values.
+
 * The ``@chunk`` decorator is used to indicate a function will create one or more
   pieces of logic circuitry. These pieces will be implicitly gathered into a
   list of logic instances that can be simulated and synthesized later.
@@ -49,7 +53,7 @@ Unfortunately, the Github Notebook viewer doesn't render the waveform displays
 so you'll have to download and run the notebooks locally or click on the static HTML
 link to see what PygMyHDL can do.
 
-* Simple LED Blinker:
+* The Fastest, Easiest FPGA Blinker, Ever!:
   `[Notebook1] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb>`_ 
   `[HTML1] <http://www.xess.com/static/media/pages/pygmyhdl/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.html>`_
 
@@ -61,9 +65,13 @@ link to see what PygMyHDL can do.
   `[Notebook3] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
   `[HTML3] <http://www.xess.com/static/media/pages/pygmyhdl/examples/3_pwm/pwm.html>`_
 
-* Block RAM Party:
+* Block (RAM) Party!:
   `[Notebook4] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb>`_ 
   `[HTML4] <http://www.xess.com/static/media/pages/pygmyhdl/examples/4_blockram/block_ram_party.html>`_
+
+* FSMs Without Monsters!:
+  `[Notebook5] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb>`_ 
+  `[HTML5] <http://www.xess.com/static/media/pages/pygmyhdl/examples/5_fsm/fsm.html>`_
 
 |
 
