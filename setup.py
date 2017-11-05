@@ -9,7 +9,7 @@ USING_PYTHON3 = not USING_PYTHON2
 
 author = 'XESS Corp.'
 email = 'info@xess.com'
-version = '0.0.2'
+version = '0.0.3'
 
 if 'sdist' in sys.argv[1:]:
     with open('pygmyhdl/pckg_info.py','w') as f:
