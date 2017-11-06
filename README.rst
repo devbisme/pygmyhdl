@@ -12,6 +12,10 @@ but tries to make it a little simpler. Think of it as "MyHDL on training wheels"
 Once you get enough experience with PygMyHDL, you'll probably cast it aside
 and just use straight MyHDL. That's OK; that's why I invented it.
 
+* Free software: MIT license
+
+* Documentation: http://xesscorp.github.io/pygmyhdl
+
 
 Features
 --------
@@ -74,5 +78,3 @@ link to see what PygMyHDL can do.
   `[HTML5] <http://www.xess.com/static/media/pages/pygmyhdl/examples/5_fsm/fsm.html>`_
 
 |
-
-* Free software: MIT license
