@@ -1,0 +1,736 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygmyhdl 0.0.3 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.3',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">pygmyhdl 0.0.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-pygmyhdl-s-documentation">
+<h1>Welcome to pygmyhdl’s documentation!<a class="headerlink" href="#welcome-to-pygmyhdl-s-documentation" title="Permalink to this headline">¶</a></h1>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+<span id="document-readme"></span><div class="section" id="pygmyhdl">
+<h2>PygMyHDL<a class="headerlink" href="#pygmyhdl" title="Permalink to this headline">¶</a></h2>
+<a class="reference external image-reference" href="https://pypi.python.org/pypi/pygmyhdl"><img alt="https://img.shields.io/pypi/v/pygmyhdl.svg" src="https://img.shields.io/pypi/v/pygmyhdl.svg" /></a>
+<p>PygMyHDL is a thin wrapper around <a class="reference external" href="myhdl.org">MyHDL</a>. MyHDL lets you design
+and simulate digital hardware using Python. PygMyHDL does the same thing,
+but tries to make it a little simpler. Think of it as “MyHDL on training wheels”.
+Once you get enough experience with PygMyHDL, you’ll probably cast it aside
+and just use straight MyHDL. That’s OK; that’s why I invented it.</p>
+<ul class="simple">
+<li>Free software: MIT license</li>
+<li>Documentation: <a class="reference external" href="http://xesscorp.github.io/pygmyhdl">http://xesscorp.github.io/pygmyhdl</a></li>
+</ul>
+<div class="section" id="features">
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<p>PygMyHDL adds the following features to MyHDL:</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">Wire</span></code> and <code class="docutils literal"><span class="pre">Bus</span></code> classes for declaring single-bit and multi-bit digital signals.</li>
+<li><code class="docutils literal"><span class="pre">Bus</span></code> objects have <code class="docutils literal"><span class="pre">.o</span></code> and <code class="docutils literal"><span class="pre">.i</span></code> properties that are used to get the value on a
+bus (that’s the <code class="docutils literal"><span class="pre">.o</span></code> property) and to drive values onto a bus (using the <code class="docutils literal"><span class="pre">.i</span></code> property).</li>
+<li><code class="docutils literal"><span class="pre">State</span></code> objects are used to declare state variables for finite-state machines.
+Each <code class="docutils literal"><span class="pre">State</span></code> object also stores all the defined states in its <code class="docutils literal"><span class="pre">s</span></code> attribute
+for use in making comparisons to states or updating state values.</li>
+<li>The <code class="docutils literal"><span class="pre">&#64;chunk</span></code> decorator is used to indicate a function will create one or more
+pieces of logic circuitry. These pieces will be implicitly gathered into a
+list of logic instances that can be simulated and synthesized later.
+(MyHDL requires you to explicitly store logic instances into Python variables
+so they can be found and processed later.)</li>
+<li>The decorators <code class="docutils literal"><span class="pre">&#64;comb_logic</span></code> and <code class="docutils literal"><span class="pre">&#64;seq_logic</span></code> are used to declare functions that
+perform combinational and sequential logic operations, respectively. (These
+are almost identical to MyHDL’s <code class="docutils literal"><span class="pre">&#64;always_comb</span></code> and <code class="docutils literal"><span class="pre">&#64;always_seq</span></code> decorators
+except they assist with the implicit instantiation of logic.)</li>
+<li>Helper functions are provided for testing a digital design using random test
+vectors, exhaustive test vectors, user-defined test vectors, or a simple clock signal.</li>
+<li>The <a class="reference external" href="xesscorp.github.io/myhdlpeek">myhdlpeek module</a> is used to display the
+results of logic simulations as waveforms or tables.</li>
+</ul>
+</div>
+<div class="section" id="getting-started">
+<h3>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h3>
+<p>Below are some examples of Jupyter notebooks using PygMyHDL.
+Unfortunately, the Github Notebook viewer doesn’t render the waveform displays
+so you’ll have to download and run the notebooks locally or click on the static HTML
+link to see what PygMyHDL can do.</p>
+<ul class="simple">
+<li>The Fastest, Easiest FPGA Blinker, Ever!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb">[Notebook1]</a>
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.html">[HTML1]</a></li>
+<li>Hierarchy and Abstraction and Ursidae, Oh My!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.ipynb">[Notebook2]</a>
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.html">[HTML2]</a></li>
+<li>Pulse Width Modulators:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb">[Notebook3]</a>
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/3_pwm/pwm.html">[HTML3]</a></li>
+<li>Block (RAM) Party!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb">[Notebook4]</a>
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/4_blockram/block_ram_party.html">[HTML4]</a></li>
+<li>FSMs Without Monsters!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb">[Notebook5]</a>
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/5_fsm/fsm.html">[HTML5]</a></li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+</div>
+<span id="document-installation"></span><div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>At the command line:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ easy_install pygmyhdl
+</pre></div>
+</div>
+<p>Or, if you have virtualenvwrapper installed:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mkvirtualenv pygmyhdl
+$ pip install pygmyhdl
+</pre></div>
+</div>
+</div>
+<span id="document-usage"></span><div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="accessing-pygmyhdl">
+<h3>Accessing PygMyHDL<a class="headerlink" href="#accessing-pygmyhdl" title="Permalink to this headline">¶</a></h3>
+<p>To use pygmyhdl in a project:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygmyhdl</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="syntax-features">
+<h3>Syntax Features<a class="headerlink" href="#syntax-features" title="Permalink to this headline">¶</a></h3>
+<p>PygMyHDL adds several syntax features to standard MyHDL.</p>
+<div class="section" id="wire-class">
+<h4>Wire Class<a class="headerlink" href="#wire-class" title="Permalink to this headline">¶</a></h4>
+<p>A <code class="docutils literal"><span class="pre">Wire</span></code> object is a one-bit Boolean signal. It is declared like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The same thing in MyHDL would be:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_wire</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="nb">bool</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">Wire</span></code> constructor takes the following optional arguments:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">init_val</span></code>:</dt>
+<dd><p class="first">A Boolean value that defines the initial value of the signal. If no
+value is given, it defaults to zero.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Create wire with initial value of 1.</span>
+<span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">init_val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Create wire with initial value of 0.</span>
+<span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>   <span class="c1"># Create wire with initial value of 0.</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">name</span></code>:</dt>
+<dd><p class="first">A string containing a name for the
+<a class="reference external" href="http://xesscorp.github.io/myhdlpeek">myhdlpeek</a> monitor that
+will be attached to the signal. If no value is given, it defaults to
+<code class="docutils literal"><span class="pre">None</span></code> and no signal monitor will be attached.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;monitor_name&#39;</span><span class="p">)</span>  <span class="c1"># Create wire with signal monitor called `monitor_name`.</span>
+<span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>  <span class="c1"># Create wire without a signal monitor.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="section" id="bus-class">
+<h4>Bus Class<a class="headerlink" href="#bus-class" title="Permalink to this headline">¶</a></h4>
+<p>A <code class="docutils literal"><span class="pre">Bus</span></code> object is a multi-bit signal. It is declared like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>  <span class="c1"># Declare a three-bit bus.</span>
+</pre></div>
+</div>
+<p>The same thing in MyHDL would be:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">modbv</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">3</span><span class="p">:])</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">Bus</span></code> constructor takes the following arguments:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">width</span></code>:</dt>
+<dd><p class="first">This integer argument is required and specifies the bit-width of the
+bus.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Declares an 8-bit bus.</span>
+<span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>  <span class="c1"># Declares a 10-bit bus.</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">init_val</span></code>:</dt>
+<dd><p class="first">An integer value that defines the initial value of the signal. If no
+value is given, it defaults to zero.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">123</span><span class="p">)</span>  <span class="c1"># Create an 8-bit bus with initial value of 123.</span>
+<span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>       <span class="c1"># Create an 8-bit bus with initial value of 0.</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">name</span></code>:</dt>
+<dd><p class="first">A string containing a name for the
+<a class="reference external" href="http://xesscorp.github.io/myhdlpeek">myhdlpeek</a> monitor that
+will be attached to the signal. If no value is given, it defaults to
+<code class="docutils literal"><span class="pre">None</span></code> and no signal monitor will be attached.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;bus_name&#39;</span><span class="p">)</span>  <span class="c1"># Create an 8-bit bus with signal monitor called `bus_name`.</span>
+<span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>  <span class="c1"># Create an 8-bit bus without a signal monitor.</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">vtype</span></code>:</dt>
+<dd><p class="first">A type that will be used for the signal. If no type is given, it
+defaults to <code class="docutils literal"><span class="pre">modbv</span></code>.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="n">intbv</span><span class="p">)</span>  <span class="c1"># Create a 16-bit bus of type intbv.</span>
+<span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>         <span class="c1"># Create a 16-bit bus of type modbv.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p><code class="docutils literal"><span class="pre">Bus</span></code> objects have the following additional properties:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">.o</span></code></dt>
+<dd><p class="first">Provides access to the <em>output bits</em> of a bus. This are used when
+passing the value on a bus to another module:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">mod_out</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>
+<span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mod_out</span><span class="p">)</span>  <span class="c1"># my_module receives inputs from LSBit of buses a and b.</span>
+</pre></div>
+</div>
+<p>The same operation in MyHDL would be:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">mod_out</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">.i</span></code></dt>
+<dd><p class="first">Provides access to the <em>input bits</em> of a bus. This is used when
+placing the output from a module onto the bus:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">],</span> <span class="n">b</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">],</span> <span class="n">c</span><span class="o">.</span><span class="n">i</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">])</span>  <span class="c1"># Bus c gets the result output.</span>
+</pre></div>
+</div>
+<p>The same operation in MyHDL would be:</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">tmp</span> <span class="o">=</span> <span class="n">Signal</span><span class="p">(</span><span class="n">intbv</span><span class="p">(</span><span class="mi">0</span><span class="p">)[</span><span class="mi">8</span><span class="p">:])</span>
+<span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">b</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">tmp</span><span class="p">)</span>
+<span class="nd">@always_comb</span>
+<span class="k">def</span> <span class="nf">xfer_func</span><span class="p">():</span>
+    <span class="n">c</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">tmp</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Note that the <code class="docutils literal"><span class="pre">.i</span></code> and <code class="docutils literal"><span class="pre">.o</span></code> properties are meant for passing bus
+bits to/from a module. When operating on a bus <em>within</em> a module, the
+standard MyHDL array operator (<code class="docutils literal"><span class="pre">[]</span></code>) is used. There is one exception
+to this: if you want to set a static value on one or more bits of a
+<code class="docutils literal"><span class="pre">Bus</span></code> object such as this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_bus</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">my_bus</span><span class="o">.</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Set the LSBit of my_bus to one.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="state-class">
+<h4>State Class<a class="headerlink" href="#state-class" title="Permalink to this headline">¶</a></h4>
+<p>A <code class="docutils literal"><span class="pre">State</span></code> object stores the state of a finite-state machine (FSM). It
+is declared like this:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_state</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="s1">&#39;St1&#39;</span><span class="p">,</span> <span class="s1">&#39;St2&#39;</span><span class="p">,</span> <span class="s1">&#39;St3&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The same thing in MyHDL would be:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">state_t</span> <span class="o">=</span> <span class="n">enum</span><span class="p">(</span><span class="s1">&#39;St1&#39;</span><span class="p">,</span> <span class="s1">&#39;St2&#39;</span><span class="p">,</span> <span class="s1">&#39;St3&#39;</span><span class="p">)</span>
+<span class="n">my_state</span> <span class="o">=</span> <span class="n">state_t</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The initial arguments to the <code class="docutils literal"><span class="pre">State</span></code> constructor are either a list of
+strings for the state names:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_state</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="s1">&#39;St1&#39;</span><span class="p">,</span> <span class="s1">&#39;St2&#39;</span><span class="p">,</span> <span class="s1">&#39;another_state&#39;</span><span class="p">,</span> <span class="s1">&#39;final_state&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or you can pass an existing <code class="docutils literal"><span class="pre">State</span></code> object to create another one just
+like it:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_next_state</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="n">my_state</span><span class="p">)</span>  <span class="c1"># Use my_state to create my_next_state.</span>
+</pre></div>
+</div>
+<p>Finally, you can access the <code class="docutils literal"><span class="pre">enum</span></code> type for a <code class="docutils literal"><span class="pre">State</span></code> object and use
+that to create a new one:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_next_state</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="n">my_state</span><span class="o">.</span><span class="n">s</span><span class="p">)</span>  <span class="c1"># Use the state type for an existing state to create a new one.</span>
+</pre></div>
+</div>
+<p>In addition to the list of states, the <code class="docutils literal"><span class="pre">State</span></code> constructor takes the
+following arguments:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">init_val</span></code>:</dt>
+<dd><p class="first">A Boolean value that defines the initial value of the signal. If no
+value is given, it defaults to zero.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Create wire with initial value of 1.</span>
+<span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">init_val</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># Create wire with initial value of 0.</span>
+<span class="n">my_wire</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>   <span class="c1"># Create wire with initial value of 0.</span>
+</pre></div>
+</div>
+</dd>
+<dt><code class="docutils literal"><span class="pre">name</span></code>:</dt>
+<dd><p class="first">A string containing a name for the
+<a class="reference external" href="http://xesscorp.github.io/myhdlpeek">myhdlpeek</a> monitor that
+will be attached to the state signal. If no value is given, it
+defaults to <code class="docutils literal"><span class="pre">None</span></code> and no signal monitor will be attached.</p>
+<div class="last highlight-default"><div class="highlight"><pre><span></span><span class="n">my_state</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;fsm_state&#39;</span><span class="p">)</span>  <span class="c1"># Create state variable with signal monitor called `fsm_state`.</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Finally, any other named arguments are passed through to the <code class="docutils literal"><span class="pre">enum</span></code>
+function. So you can specify things like the state encoding scheme.</p>
+<p>As shown previously, each <code class="docutils literal"><span class="pre">State</span></code> object keeps a record of its
+<code class="docutils literal"><span class="pre">enum</span></code> type under the <code class="docutils literal"><span class="pre">.s</span></code> attribute. This provides access to the
+allowable states for doing state comparisons and assignments:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_state</span> <span class="o">=</span> <span class="n">State</span><span class="p">(</span><span class="s1">&#39;st1&#39;</span><span class="p">,</span> <span class="s1">&#39;st2&#39;</span><span class="p">,</span> <span class="s1">&#39;st3&#39;</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">my_state</span> <span class="o">==</span> <span class="n">my_state</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">st1</span><span class="p">:</span>      <span class="c1"># Compare to see what state in my_state is in.</span>
+    <span class="n">my_state</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">my_state</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">st2</span>  <span class="c1"># Update my_state with a new state.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="chunk-decorator">
+<h4>&#64;chunk Decorator<a class="headerlink" href="#chunk-decorator" title="Permalink to this headline">¶</a></h4>
+<p>Place the <code class="docutils literal"><span class="pre">&#64;chunk</span></code> decorator before the definition of a module like
+so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="nd">@comb_logic</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal"><span class="pre">&#64;chunk</span></code> decorator inserts some code to manage the implicit
+addition of module instances to the global list of module instances. It
+is <em>not</em> related to the <code class="docutils literal"><span class="pre">&#64;block</span></code> decorator in standard MyHDL in any
+way.</p>
+</div>
+<div class="section" id="comb-logic-decorator">
+<h4>&#64;comb_logic Decorator<a class="headerlink" href="#comb-logic-decorator" title="Permalink to this headline">¶</a></h4>
+<p>Place the <code class="docutils literal"><span class="pre">&#64;comb_logic</span></code> decorator before the definition of a
+combinational logic function inside a module like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+    <span class="nd">@comb_logic</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="n">s</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">&#64;comb_logic</span></code> is equivalent to the use of the <code class="docutils literal"><span class="pre">&#64;always_comb</span></code>
+decorator in standard MyHDL but it also assists in implicitly adding the
+function to the global list of instances.</p>
+</div>
+<div class="section" id="seq-logic-decorator">
+<h4>&#64;seq_logic Decorator<a class="headerlink" href="#seq-logic-decorator" title="Permalink to this headline">¶</a></h4>
+<p>Place the <code class="docutils literal"><span class="pre">&#64;seq_logic</span></code> decorator before the definition of a sequential
+logic function inside a module like so:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">cnt</span><span class="p">):</span>
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>  <span class="c1"># Update counter on the rising edge of clock.</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="n">cnt</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cnt</span> <span class="o">+</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p><code class="docutils literal"><span class="pre">&#64;seq_logic</span></code> takes one parameter that specifies the edge of the clock
+that triggers the sequential logic (either <code class="docutils literal"><span class="pre">posedge</span></code> or <code class="docutils literal"><span class="pre">negedge</span></code>).</p>
+<p><code class="docutils literal"><span class="pre">&#64;seq_logic</span></code> is equivalent to the use of the <code class="docutils literal"><span class="pre">&#64;always_comb</span></code>
+decorator in standard MyHDL but it also assists in implicitly adding the
+function to the global list of instances.</p>
+</div>
+<div class="section" id="module-instantiation">
+<h4>Module Instantiation<a class="headerlink" href="#module-instantiation" title="Permalink to this headline">¶</a></h4>
+<p>Unlike standard MyHDL, PygMyHDL doesn’t require explicit calls to
+<code class="docutils literal"><span class="pre">instances()</span></code> or the return of module instantiations. Instead,
+PygMyHDL maintains a global list of instantiations to which modules are
+added whenever they are called. So instead of doing this in MyHDL:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">m</span> <span class="o">=</span> <span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>  <span class="c1"># Instantiate module and capture the instance object.</span>
+<span class="k">return</span> <span class="n">m</span>                <span class="c1"># Return instance object.</span>
+</pre></div>
+</div>
+<p>You would do the following in PygMyHDL:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>  <span class="c1"># Automatically places the module instantiation on the global module list.</span>
+</pre></div>
+</div>
+<p>(Note that this requires you to use the <code class="docutils literal"><span class="pre">&#64;chunk</span></code> decorator for the
+modules you define in PygMyHDL.</p>
+</div>
+</div>
+<div class="section" id="simulation-functions">
+<h3>Simulation Functions<a class="headerlink" href="#simulation-functions" title="Permalink to this headline">¶</a></h3>
+<p>PygMyHDL provides several functions to make simulation easier.</p>
+<div class="section" id="simulate">
+<h4>simulate()<a class="headerlink" href="#simulate" title="Permalink to this headline">¶</a></h4>
+<p>This function takes a test bench function and simulates it along with
+whatever modules are on the global list:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">tb</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">):</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">simulate</span><span class="p">(</span><span class="n">tb</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="random-sim">
+<h4>random_sim()<a class="headerlink" href="#random-sim" title="Permalink to this headline">¶</a></h4>
+<p>This function applies random inputs to a module instance:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(),</span> <span class="n">Wire</span><span class="p">(),</span> <span class="n">Wire</span><span class="p">()</span>
+<span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+<span class="n">random_sim</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">num_tests</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># Apply 5 random combinations of a, b, c to my_module.</span>
+</pre></div>
+</div>
+<p>The first set of positional arguments to <code class="docutils literal"><span class="pre">random_sim</span></code> are the signals
+(either <code class="docutils literal"><span class="pre">Wire</span></code> or <code class="docutils literal"><span class="pre">Bus</span></code> objects) that are assigned random value. The
+named arguments are as follows:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">num_tests</span></code>:</dt>
+<dd>An integer specifying the number of random input combinations to
+apply.</dd>
+<dt><code class="docutils literal"><span class="pre">dly</span></code>:</dt>
+<dd>The number of time units to insert between each input combination.</dd>
+</dl>
+<div class="section" id="exhaustive-sim">
+<h5>exhaustive_sim()<a class="headerlink" href="#exhaustive-sim" title="Permalink to this headline">¶</a></h5>
+<p>This function applies every possible combination of inputs to a module
+instance:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(),</span> <span class="n">Wire</span><span class="p">(),</span> <span class="n">Wire</span><span class="p">()</span>
+<span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+<span class="n">exhaustive_sim</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>  <span class="c1"># Apply all 8 combinations of a, b, c to my_module.</span>
+</pre></div>
+</div>
+<p>The first set of positional arguments to <code class="docutils literal"><span class="pre">exhaustive_sim</span></code> are the
+signals (either <code class="docutils literal"><span class="pre">Wire</span></code> or <code class="docutils literal"><span class="pre">Bus</span></code> objects) that are assigned values.
+The named arguments are as follows:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">dly</span></code>:</dt>
+<dd>The number of time units to insert between each input combination.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="clk-sim">
+<h4>clk_sim()<a class="headerlink" href="#clk-sim" title="Permalink to this headline">¶</a></h4>
+<p>This function applies a specified number of pulses to a signal (usually
+a clock):</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">my_module</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">clk</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>
+<span class="n">my_module</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="n">clk_sim</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">num_cycles</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># Apply 5 pulses to clk.</span>
+</pre></div>
+</div>
+<p>The first set of positional argument to <code class="docutils literal"><span class="pre">clk_sim</span></code> is the signal
+(usually a <code class="docutils literal"><span class="pre">Wire</span></code> objects) that will accept the pulses. The named
+arguments are as follows:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">num_cycles</span></code>:</dt>
+<dd>An integer specifying the number of pulses (1-0) to apply.</dd>
+<dt><code class="docutils literal"><span class="pre">dly</span></code>:</dt>
+<dd>The number of time units to insert between each pulse edge.</dd>
+</dl>
+</div>
+<div class="section" id="vector-sim">
+<h4>vector_sim()<a class="headerlink" href="#vector-sim" title="Permalink to this headline">¶</a></h4>
+<p>This function applies sets of values to one or more signals:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+    <span class="o">...</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">my_module</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="n">vector_sim</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span> <span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="p">[</span><span class="mi">255</span><span class="p">,</span> <span class="mi">254</span><span class="p">,</span> <span class="mi">253</span><span class="p">,</span> <span class="mi">252</span><span class="p">,</span> <span class="mi">251</span><span class="p">]])</span>
+</pre></div>
+</div>
+<p>The first set of positional arguments to <code class="docutils literal"><span class="pre">vector_sim</span></code> are lists with
+the first element being a signal (either a <code class="docutils literal"><span class="pre">Wire</span></code> or <code class="docutils literal"><span class="pre">Bus</span></code> object)
+followed by a vector of values that will be applied to that signal. The
+named arguments are as follows:</p>
+<dl class="docutils">
+<dt><code class="docutils literal"><span class="pre">num_cycles</span></code>:</dt>
+<dd>An integer specifying the number of values to apply to the signals.
+If not given, the number of cycles is set to the maximum of the
+number of values of all the signal lists.</dd>
+<dt><code class="docutils literal"><span class="pre">dly</span></code>:</dt>
+<dd>The number of time units to insert between each value.</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>Below are some examples of Jupyter notebooks using PygMyHDL.
+Unfortunately, the Github Notebook viewer doesn’t render the waveform
+displays so you’ll have to download and run the notebooks locally or
+click on the static HTML link to see what PygMyHDL can do.</p>
+<ul class="simple">
+<li>The Fastest, Easiest FPGA Blinker, Ever!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb">Notebook1</a>
+/
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.html">HTML1</a></li>
+<li>Hierarchy and Abstraction and Ursidae, Oh My!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.ipynb">Notebook2</a>
+/
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.html">HTML2</a></li>
+<li>Pulse Width Modulators:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb">Notebook3</a>
+/
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/3_pwm/pwm.html">HTML3</a></li>
+<li>Block (RAM) Party!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb">Notebook4</a>
+/
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/4_blockram/block_ram_party.html">HTML4</a></li>
+<li>FSMs Without Monsters!:
+<a class="reference external" href="https://github.com/xesscorp/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb">Notebook5</a>
+/
+<a class="reference external" href="http://www.xess.com/static/media/pages/pygmyhdl/examples/5_fsm/fsm.html">HTML5</a></li>
+</ul>
+</div>
+</div>
+<span id="document-contributing"></span><div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>Contributions are welcome, and they are greatly appreciated! Every
+little bit helps, and credit will always be given.</p>
+<p>You can contribute in many ways:</p>
+<div class="section" id="types-of-contributions">
+<h3>Types of Contributions<a class="headerlink" href="#types-of-contributions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="report-bugs">
+<h4>Report Bugs<a class="headerlink" href="#report-bugs" title="Permalink to this headline">¶</a></h4>
+<p>Report bugs at <a class="reference external" href="https://github.com/xesscorp/pygmyhdl/issues">https://github.com/xesscorp/pygmyhdl/issues</a>.</p>
+<p>If you are reporting a bug, please include:</p>
+<ul class="simple">
+<li>Your operating system name and version.</li>
+<li>Any details about your local setup that might be helpful in troubleshooting.</li>
+<li>Detailed steps to reproduce the bug.</li>
+</ul>
+</div>
+<div class="section" id="fix-bugs">
+<h4>Fix Bugs<a class="headerlink" href="#fix-bugs" title="Permalink to this headline">¶</a></h4>
+<p>Look through the GitHub issues for bugs. Anything tagged with “bug”
+is open to whoever wants to implement it.</p>
+</div>
+<div class="section" id="implement-features">
+<h4>Implement Features<a class="headerlink" href="#implement-features" title="Permalink to this headline">¶</a></h4>
+<p>Look through the GitHub issues for features. Anything tagged with “feature”
+is open to whoever wants to implement it.</p>
+</div>
+<div class="section" id="write-documentation">
+<h4>Write Documentation<a class="headerlink" href="#write-documentation" title="Permalink to this headline">¶</a></h4>
+<p>pygmyhdl could always use more documentation, whether as part of the
+official pygmyhdl docs, in docstrings, or even on the web in blog posts,
+articles, and such.</p>
+</div>
+<div class="section" id="submit-feedback">
+<h4>Submit Feedback<a class="headerlink" href="#submit-feedback" title="Permalink to this headline">¶</a></h4>
+<p>The best way to send feedback is to file an issue at <a class="reference external" href="https://github.com/xesscorp/pygmyhdl/issues">https://github.com/xesscorp/pygmyhdl/issues</a>.</p>
+<p>If you are proposing a feature:</p>
+<ul class="simple">
+<li>Explain in detail how it would work.</li>
+<li>Keep the scope as narrow as possible, to make it easier to implement.</li>
+<li>Remember that this is a volunteer-driven project, and that contributions
+are welcome :)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="get-started">
+<h3>Get Started!<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h3>
+<p>Ready to contribute? Here’s how to set up <cite>pygmyhdl</cite> for local development.</p>
+<ol class="arabic">
+<li><p class="first">Fork the <cite>pygmyhdl</cite> repo on GitHub.</p>
+</li>
+<li><p class="first">Clone your fork locally:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git clone git@github.com:your_name_here/pygmyhdl.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ mkvirtualenv pygmyhdl
+$ cd pygmyhdl/
+$ python setup.py develop
+</pre></div>
+</div>
+</li>
+<li><p class="first">Create a branch for local development:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git checkout -b name-of-your-bugfix-or-feature
+</pre></div>
+</div>
+<p>Now you can make your changes locally.</p>
+</li>
+<li><p class="first">When you’re done making changes, check that your changes pass flake8 and the tests, including testing other Python versions with tox:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ flake8 pygmyhdl tests
+$ python setup.py test
+$ tox
+</pre></div>
+</div>
+<p>To get flake8 and tox, just pip install them into your virtualenv.</p>
+</li>
+<li><p class="first">Commit your changes and push your branch to GitHub:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ git add .
+$ git commit -m &quot;Your detailed description of your changes.&quot;
+$ git push origin name-of-your-bugfix-or-feature
+</pre></div>
+</div>
+</li>
+<li><p class="first">Submit a pull request through the GitHub website.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="pull-request-guidelines">
+<h3>Pull Request Guidelines<a class="headerlink" href="#pull-request-guidelines" title="Permalink to this headline">¶</a></h3>
+<p>Before you submit a pull request, check that it meets these guidelines:</p>
+<ol class="arabic simple">
+<li>The pull request should include tests.</li>
+<li>If the pull request adds functionality, the docs should be updated. Put
+your new functionality into a function with a docstring, and add the
+feature to the list in README.rst.</li>
+<li>The pull request should work for Python 2.6, 2.7, 3.3, and 3.4, and for PyPy. Check
+<a class="reference external" href="https://travis-ci.org/xesscorp/pygmyhdl/pull_requests">https://travis-ci.org/xesscorp/pygmyhdl/pull_requests</a>
+and make sure that the tests pass for all supported Python versions.</li>
+</ol>
+</div>
+<div class="section" id="tips">
+<h3>Tips<a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h3>
+<p>To run a subset of tests:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span>$ python -m unittest tests.test_pygmyhdl
+</pre></div>
+</div>
+</div>
+</div>
+<span id="document-authors"></span><div class="section" id="credits">
+<h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="development-lead">
+<h3>Development Lead<a class="headerlink" href="#development-lead" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>XESS Corp. &lt;<a class="reference external" href="mailto:info&#37;&#52;&#48;xess&#46;com">info<span>&#64;</span>xess<span>&#46;</span>com</a>&gt;</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h3>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h3>
+<p>None yet. Why not be the first?</p>
+</div>
+</div>
+<span id="document-history"></span><div class="section" id="history">
+<h2>History<a class="headerlink" href="#history" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>0.0.3 (2017-11-05)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Added State object for working with finite-state machines in PygMyHDL.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>0.0.2 (2017-09-20)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Fixed Bus object so my_bus.o[m:n] now calls my_bus(m, n) to get a shadow slice instead of creating an array of wires.</li>
+</ul>
+</div>
+<div class="section" id="id3">
+<h3>0.0.1 (2017-08-30)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>First release on PyPI.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="indices-and-tables">
+<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
+<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
+<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html#document-index">Table Of Contents</a></h3>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-readme">PygMyHDL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#features">Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#getting-started">Getting Started</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-installation">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-usage">Usage</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#accessing-pygmyhdl">Accessing PygMyHDL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#syntax-features">Syntax Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#simulation-functions">Simulation Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#examples">Examples</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-contributing">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#types-of-contributions">Types of Contributions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#get-started">Get Started!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#pull-request-guidelines">Pull Request Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#tips">Tips</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-authors">Credits</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#development-lead">Development Lead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#contributors">Contributors</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="index.html#document-history">History</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id1">0.0.3 (2017-11-05)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id2">0.0.2 (2017-09-20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#id3">0.0.1 (2017-08-30)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="nav-item nav-item-0"><a href="index.html#document-index">pygmyhdl 0.0.3 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, XESS Corp..
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>
