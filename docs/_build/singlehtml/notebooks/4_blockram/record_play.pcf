@@ -1,0 +1,9 @@
+
+set_io clk_i 21
+set_io leds_o[0] 99
+set_io leds_o[1] 98
+set_io leds_o[2] 97
+set_io leds_o[3] 96
+set_io leds_o[4] 95
+set_io button_a 118
+set_io button_b 114
