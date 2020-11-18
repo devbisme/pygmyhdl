@@ -59,22 +59,22 @@ link to see what PygMyHDL can do.
 
 * The Fastest, Easiest FPGA Blinker, Ever!:
   `[Notebook1] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb>`_ 
-  `[HTML1] <https://xess.com/myhdlpeek/docs/_build/singlehtml/notebooks/fastest_easiest_FPGA_blinker_ever.html>`_
+  `[HTML1] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/1_blinker/fastest_easiest_FPGA_blinker_ever.html>`_
 
 * Hierarchy and Abstraction and Ursidae, Oh My!:
   `[Notebook2] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.ipynb>`_
-  `[HTML2] <https://xess.com/myhdlpeek/docs/_build/singlehtml/notebooks/hierarchy_and_abstraction_and_ursidae_oh_my.html>`_
+  `[HTML2] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.html>`_
 
 * Pulse Width Modulators:
   `[Notebook3] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
-  `[HTML3] <https://xess.com/myhdlpeek/docs/_build/singlehtml/notebooks/examples/3_pwm/pwm.html>`_
+  `[HTML3] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/3_pwm/examples/3_pwm/pwm.html>`_
 
 * Block (RAM) Party!:
   `[Notebook4] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb>`_ 
-  `[HTML4] <https://xess.com/myhdlpeek/docs/_build/singlehtml/notebooks/4_blockram/block_ram_party.html>`_
+  `[HTML4] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/4_blockram/block_ram_party.html>`_
 
 * FSMs Without Monsters!:
   `[Notebook5] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb>`_ 
-  `[HTML5] <https://xess.com/myhdlpeek/docs/_build/singlehtml/notebooks/5_fsm/fsm.html>`_
+  `[HTML5] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/5_fsm/fsm.html>`_
 
 |
