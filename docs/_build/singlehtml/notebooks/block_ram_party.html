@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>hierarchy_and_abstraction_and_ursidae_oh_my</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>block_ram_party</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11767,9 +11767,7 @@ div#notebook {
     });
     </script>
     <!-- End of mathjax configuration --></head>
-<script src="https://wavedrom.com/skins/default.js" type="text/javascript"></script>
-<script src="https://wavedrom.com/wavedrom.min.js" type="text/javascript"></script>
-<body onload="WaveDrom.ProcessAll()">
+<body>
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
@@ -12070,6 +12068,25 @@ div#notebook {
 </div>
 
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># A function I&#39;ll use later to extract FPGA resource usage stats from Yosys log output.</span>
+<span class="k">def</span> <span class="nf">print_stats</span><span class="p">(</span><span class="n">yosys_log</span><span class="p">):</span>
+    <span class="n">stat_start_line</span> <span class="o">=</span> <span class="n">yosys_log</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^2\.27\. &#39;</span><span class="p">)</span>
+    <span class="n">stat_end_line</span> <span class="o">=</span> <span class="n">yosys_log</span><span class="o">.</span><span class="n">grep</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^2\.28\. &#39;</span><span class="p">)</span>
+    <span class="n">start_index</span> <span class="o">=</span> <span class="n">yosys_log</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">stat_start_line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">end_index</span> <span class="o">=</span> <span class="n">yosys_log</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">stat_end_line</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">yosys_log</span><span class="p">[</span><span class="n">start_index</span><span class="o">+</span><span class="mi">2</span><span class="p">:</span><span class="n">end_index</span><span class="o">-</span><span class="mi">1</span><span class="p">]))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12084,7 +12101,7 @@ executable Jupyter notebook <a href="https://github.com/xesscorp/pygmyhdl/tree/m
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Hierarchy-and-Abstraction-and-Ursidae,-Oh-My!">Hierarchy and Abstraction and Ursidae, <em>Oh My!</em><a class="anchor-link" href="#Hierarchy-and-Abstraction-and-Ursidae,-Oh-My!">&#182;</a></h1>
+<h1 id="Block-(RAM)-Party!">Block (RAM) Party!<a class="anchor-link" href="#Block-(RAM)-Party!">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -12092,31 +12109,12 @@ executable Jupyter notebook <a href="https://github.com/xesscorp/pygmyhdl/tree/m
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Those are big, scary words often associated with FPGA designs, but with simple meanings:</p>
-<p><em>Hierarchy:</em> "See that big, complex thing? It's actually made of small, simple things.
-And those small, simple things are made of even smaller, simpler things."</p>
-<p><em>Abstraction:</em> "See that thing? It does something. I don't care <em>how</em> it does it.
-I just need to know <em>what</em> it does."</p>
-<p><em>Ursidae:</em> This is the scientific family name for bears. They have nothing to do with this chapter.
-I just needed it to make the whole <a href="https://www.youtube.com/watch?v=-HrfbV16-FQ"><em>Wizard of Oz</em></a> reference work.</p>
-<p>Take a car as an example. It consists of a body and a drive train. The drive train
-is made up of an engine, transmission, drive shaft, axles and wheels.
-And the engine is made up of a block, pistons, fuel injectors, etc.
-And on and on.
-That's hierarchy.</p>
-<p>Then think about somebody who's putting an engine in a car.
-He needs to know how big the engine is, how to feed gas to it, and where the
-spinny thing is that attaches to the drive shaft and makes the wheels go round.
-All the stuff about piston rings and camshafts and coolant channels
-are details he can ignore.
-That's abstraction.</p>
-<p>And what about Ursidae?
-Bears have nothing to do with this.
-I told you that already.
-Just let it go.</p>
-<p>The role of hierarchy and abstraction in digital design is best understood
-by going through a concrete example.
-And what's the best example we have at this point?</p>
+<p>I've already presented some simple combinational and sequential circuits using the FPGA's LUTs and D flip-flops.
+But the iCE40 has even more to offer: <em>block RAMs!</em>
+These are specialized blocks (hence the name) of high density <a href="https://en.wikipedia.org/wiki/Random-access_memory">RAM</a>
+embedded within the FPGA fabric.
+These <em>BRAMs</em> provide a place to store lots of bits without using up all the DFFs in the FPGA.
+Now I'll show you how to use them.</p>
 
 </div>
 </div>
@@ -12125,7 +12123,7 @@ And what's the best example we have at this point?</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-LED-Blinker-Revisited">The LED Blinker Revisited<a class="anchor-link" href="#The-LED-Blinker-Revisited">&#182;</a></h2>
+<h2 id="Inferring-Block-RAMs">Inferring Block RAMs<a class="anchor-link" href="#Inferring-Block-RAMs">&#182;</a></h2>
 </div>
 </div>
 </div>
@@ -12133,135 +12131,12 @@ And what's the best example we have at this point?</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's rebuild the LED blinker from our
-<a href="http://www.xess.com/static/media/pages/pygmyhdl/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.html">previous example</a>
-as a hierarchy of smaller pieces of digital logic.
-I'll do this in two phases:</p>
-<ul>
-<li><strong>Phase 1:</strong> I'll break the design into smaller pieces. Then I'll break those pieces into
-even smaller pieces and continue the process until I've reached the lowest level
-I think is reasonable.</li>
-<li><strong>Phase 2:</strong> I'll take each piece at the lowest level and describe it using MyHDL.
-Then, I'll interconnect those MyHDL code fragments and use them to build the
-next higher level.
-And I'll proceed like that until I've got the entire LED blinker built in MyHDL.</li>
-</ul>
-<p>This process - break it down starting from the top, then rebuild it starting from the bottom - is
-a common technique used in software design.
-Since building hardware using an HDL is similar to writing software, it's no surprise
-the pattern works here.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Break-Down">Break Down<a class="anchor-link" href="#Break-Down">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's start by showing the LED blinker at it's highest level of abstraction:
-it takes a clock as input and generates a single output that turns an LED on and off:</p>
-<p><img alt="Highest level of abstraction for an LED blinker." src="lvl_led_blinker.png" width=500/></p>
-<p>At the next level of abstraction, we already know the blinker is built from an $N$-bit
-counter with the LED output driven from the counter's MSB.</p>
-<p><img alt="Second highest level of abstraction for an LED blinker." src="lvl_counter.png" width=500/></p>
-<p>Going down another level, a counter can be constructed from an $N$-bit
-<a href="https://en.wikibooks.org/wiki/Digital_Circuits/Registers_and_Counters">register</a>
-and an $N$-bit <a href="https://en.wikipedia.org/wiki/Adder_(electronics">binary adder</a>).
-The register holds a value $V$ and, on every pulse of the clock input, that value
-is replaced by $V + 1$.</p>
-<p><img alt="Third highest level of abstraction for an LED blinker." src="lvl_reg_adder.png" width=550/></p>
-<p>The register consists of $N$ individual
-<a href="http://hyperphysics.phy-astr.gsu.edu/hbase/Electronic/Dflipflop.html">D flip-flops</a>
-each of which stores a single bit of the register value that is updated when there is a rising
-edge of the clock input:</p>
-<p><img alt="Individual bits of a register." src="lvl_dff.png" width=400/></p>
-<p>The adder is also composed of $N$ subcomponents called
-<a href="http://www.electronics-tutorials.ws/combination/comb_7.html">full-adder bits</a>.
-The $k$-th full-adder bit takes the $k$-th bit from each of the numbers to be added along with
-a carry bit from the preceding stage of the adder.
-It combines these to compute the $k$-th sum bit and a carry bit for the next stage of the adder.
-In the figure below, I've replaced the <code>a</code> input with the value <code>0...001</code> because the
-adder is being used to increment the value on the <code>b</code> input.
-I've also placed a <code>0</code> on the carry input into the first bit of the adder.</p>
-<p><img alt="Interconnection of full-adder bits." src="lvl_adder.png" width=350/></p>
-<p>Finally, each full-adder bit is built from a
-<a href="#Full_Adder_Gates">collection of primitive logic gates [1]</a> like this:</p>
-<p><img alt="Full-adder bit gates." src="lvl_adder_bit.png" width=200/></p>
-<p>And that's the complete breakdown of the LED blinker.
-Now it's time to build it back up using MyHDL.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Build-Up">Build Up<a class="anchor-link" href="#Build-Up">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I broke the LED blinker down to its most basic components,
-now I'll start at the lowest level of the hierarchy to build it back up.</p>
-<p><img alt="LED Blinker hierarchy" src="blinker_hierarchy.png" width=200/></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Here's the MyHDL code for a single D flip-flop. It's a simple piece of
-sequential logic that copies its input to its output whenever there is a rising
-edge on the clock input:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pygmyhdl</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="nd">@chunk</span>
-<span class="k">def</span> <span class="nf">dff</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">d_i</span><span class="p">,</span> <span class="n">q_o</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Inputs:</span>
-<span class="sd">      clk_i: Rising edge on this input stores data on d_i into q_o.</span>
-<span class="sd">      d_i: Input that brings new data into the flip-flop:</span>
-<span class="sd">    Outputs:</span>
-<span class="sd">      q_o: Output of the data stored in the flip-flop.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
-        <span class="n">q_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">d_i</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now I can build a register by instantiating multiple <code>dff</code> modules in a loop:</p>
+<p>If you look at the
+<a href="http://www.latticesemi.com/~/media/LatticeSemi/Documents/TechnicalBriefs/iCE201404TechnologyLibrary.pdf?document_id=50524">iCE40 technology library docs</a>,
+you'll see how to instantiate a BRAM using Verilog or VHDL.
+But that doesn't do us much good since we're using MyHDL.
+So I'm going to demonstrate how to describe a RAM using MyHDL such that Yosys will <em>infer</em> that a BRAM is what I want.</p>
+<p>As a first cut, here's a description of a simple RAM:</p>
 
 </div>
 </div>
@@ -12271,10 +12146,40 @@ edge on the clock input:</p>
 <div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
-<span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">d_i</span><span class="p">,</span> <span class="n">q_o</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">d_i</span><span class="p">)):</span>
-        <span class="n">dff</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">d_i</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">q_o</span><span class="o">.</span><span class="n">i</span><span class="p">[</span><span class="n">k</span><span class="p">])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">pygmyhdl</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">ram</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">en_i</span><span class="p">,</span> <span class="n">wr_i</span><span class="p">,</span> <span class="n">addr_i</span><span class="p">,</span> <span class="n">data_i</span><span class="p">,</span> <span class="n">data_o</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">      clk_i:  Data is read/written on the rising edge of this clock input.</span>
+<span class="sd">      en_i:   When high, the RAM is enabled for read/write operations.</span>
+<span class="sd">      wr_i:   When high, data is written to the RAM; when low, data is read from the RAM.</span>
+<span class="sd">      addr_i: Address bus for selecting which RAM location is being read/written.</span>
+<span class="sd">      data_i: Data bus for writing data into the RAM.</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">      data_o: Data bus for reading data from the RAM.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1"># Create an array of words to act as RAM locations for storing data.</span>
+    <span class="c1"># The number of bits in each word is set by the width of the data input bus.</span>
+    <span class="c1"># The number of words is determined by the width of the address bus so,</span>
+    <span class="c1"># for example, a 4-bit address would create 2**4 = 16 RAM locations.</span>
+    <span class="n">mem</span> <span class="o">=</span> <span class="p">[</span><span class="n">Bus</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="nb">len</span><span class="p">(</span><span class="n">addr_i</span><span class="p">))]</span>
+    
+    <span class="c1"># Perform read/write operations on the rising edge of the clock.</span>
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">en_i</span><span class="p">:</span>
+            <span class="c1"># The read/write operations only get executed if the enable input is high.</span>
+            <span class="k">if</span> <span class="n">wr_i</span><span class="p">:</span>
+                <span class="c1"># If the write-control is high, write the value on the input data bus</span>
+                <span class="c1"># into the array of words at the given address value.</span>
+                <span class="n">mem</span><span class="p">[</span><span class="n">addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">data_i</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># If the write-control is low, read data from the word at the</span>
+                <span class="c1"># given address value and send it to the output data bus.</span>
+                <span class="n">data_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">mem</span><span class="p">[</span><span class="n">addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span>
 </pre></div>
 
 </div>
@@ -12286,28 +12191,7 @@ edge on the clock input:</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The loop count is set by the number of bits in the incoming data bus, <code>d_i</code>.
-During each loop iteration, a D flip-flop is created.
-The <code>d_i.o[k]</code> <a href="#Bus_Notation">notation [2]</a> says that the $k$-th output bit of
-the <code>d_i</code> bus is used to drive the data input of the $k$-th flip-flop.
-In a similar manner, the <code>q_o.i[k]</code> notation says that the output of the $k$-th
-flip-flop will drive the $k$-th input bit of the <code>q_o</code> bus.
-In this way, the register input bus is applied to the individual flip-flops, and the
-flip-flop outputs collectively drive the register output bus.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To test the register, I'll connect it to a clock signal and some
-<a href="#No_I_O_Suffixes">input and output buses [3]</a>.
-Then, I'll use a simple
-<a href="https://www.xilinx.com/itp/xilinx10/isehelp/ise_c_simulation_test_bench.htm">test bench function</a>
-to apply random values to the
-register input and see if those values propagate to the register output:</p>
+<p>To verify this actually works as a RAM, I'll run a little simulation:</p>
 
 </div>
 </div>
@@ -12317,33 +12201,52 @@ register input and see if those values propagate to the register output:</p>
 <div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">initialize</span><span class="p">()</span>  <span class="c1"># Initialize for simulation.</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">initialize</span><span class="p">()</span>  <span class="c1"># Yeah, yeah, get things ready for simulation...</span>
 
-<span class="c1"># Create clock signal and 8-bit register input and output buses.</span>
+<span class="c1"># Create wires and buses to connect to the RAM.</span>
 <span class="n">clk</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;clk&#39;</span><span class="p">)</span>
-<span class="n">data_in</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_in&#39;</span><span class="p">)</span>
-<span class="n">data_out</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_out&#39;</span><span class="p">)</span>
+<span class="n">en</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;en&#39;</span><span class="p">)</span>
+<span class="n">wr</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;wr&#39;</span><span class="p">)</span>
+<span class="n">addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;addr&#39;</span><span class="p">)</span>
+<span class="n">data_i</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_i&#39;</span><span class="p">)</span>
+<span class="n">data_o</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_o&#39;</span><span class="p">)</span>
 
-<span class="c1"># Instantiate a register and attach the clock and I/O buses.</span>
-<span class="n">register</span><span class="p">(</span><span class="n">clk_i</span><span class="o">=</span><span class="n">clk</span><span class="p">,</span> <span class="n">d_i</span><span class="o">=</span><span class="n">data_in</span><span class="p">,</span> <span class="n">q_o</span><span class="o">=</span><span class="n">data_out</span><span class="p">)</span>
+<span class="c1"># Instantiate the RAM.</span>
+<span class="n">ram</span><span class="p">(</span><span class="n">clk_i</span><span class="o">=</span><span class="n">clk</span><span class="p">,</span> <span class="n">en_i</span><span class="o">=</span><span class="n">en</span><span class="p">,</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">wr</span><span class="p">,</span> <span class="n">addr_i</span><span class="o">=</span><span class="n">addr</span><span class="p">,</span> <span class="n">data_i</span><span class="o">=</span><span class="n">data_i</span><span class="p">,</span> <span class="n">data_o</span><span class="o">=</span><span class="n">data_o</span><span class="p">)</span>
 
-<span class="c1"># Apply random 8-bit integers to the register input along with</span>
-<span class="c1"># rising and falling edges of the clock signal.</span>
-<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="n">randint</span>  <span class="c1"># Random integer function.</span>
-<span class="k">def</span> <span class="nf">test_bench</span><span class="p">():</span>
-    <span class="c1"># Apply ten random inputs to the register.</span>
+<span class="k">def</span> <span class="nf">ram_test_bench</span><span class="p">():</span>
+    <span class="sd">&#39;&#39;&#39;RAM test bench: write 10 values to RAM, then read them back.&#39;&#39;&#39;</span>
+    
+    <span class="n">en</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Enable the RAM.</span>
+    
+    <span class="c1"># Write data to the first 10 locations in the RAM.</span>
+    <span class="n">wr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Enable writes to RAM.</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
-        <span class="n">data_in</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">256</span><span class="p">)</span>  <span class="c1"># Set register input to a random 8-bit value.</span>
-        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Lower clock signal to 0.</span>
-        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Wait for one unit of simulation time.</span>
-        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Then raise the clock signal to 1 ...</span>
-        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># ... and wait one more time unit. The register output should change.</span>
+        <span class="n">addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">i</span>            <span class="c1"># Select RAM location to be written.</span>
+        <span class="n">data_i</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># Generate a value to write to the location.</span>
         
-<span class="c1"># Pass the test bench function to the simulator function to run the simulation.</span>
-<span class="n">simulate</span><span class="p">(</span><span class="n">test_bench</span><span class="p">())</span>
+        <span class="c1"># Pulse the clock to write the data to RAM.</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># View the results of the simulation.</span>
-<span class="n">show_waveforms</span><span class="p">()</span>
+    <span class="c1"># Read data from the 10 locations that were written.</span>
+    <span class="n">wr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Disable writes to RAM == enable reads from RAM.</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">i</span>   <span class="c1"># Select the RAM location to be read.</span>
+        
+        <span class="c1"># Pulse the clock to read the data from RAM.</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Simulate the RAM using the test bench.</span>
+<span class="n">simulate</span><span class="p">(</span><span class="n">ram_test_bench</span><span class="p">())</span>
+
+<span class="c1"># Look at the RAM inputs and outputs as the simulation was executed.</span>
+<span class="n">show_text_table</span><span class="p">(</span><span class="s1">&#39;en clk wr addr data_i data_o&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12359,8 +12262,49 @@ register input and see if those values propagate to the register output:</p>
 <div class="prompt"></div>
 
 
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>&lt;class &#39;myhdl.StopSimulation&#39;&gt;: No more events
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  Time    en    clk    wr    addr    data_i    data_o
+------  ----  -----  ----  ------  --------  --------
+     0     1      0     1       0         1         0
+     1     1      1     1       0         1         0
+     2     1      0     1       1         4         0
+     3     1      1     1       1         4         0
+     4     1      0     1       2         7         0
+     5     1      1     1       2         7         0
+     6     1      0     1       3        10         0
+     7     1      1     1       3        10         0
+     8     1      0     1       4        13         0
+     9     1      1     1       4        13         0
+    10     1      0     1       5        16         0
+    11     1      1     1       5        16         0
+    12     1      0     1       6        19         0
+    13     1      1     1       6        19         0
+    14     1      0     1       7        22         0
+    15     1      1     1       7        22         0
+    16     1      0     1       8        25         0
+    17     1      1     1       8        25         0
+    18     1      0     1       9        28         0
+    19     1      1     1       9        28         0
+    20     1      0     0       0        28         0
+    21     1      1     0       0        28         1
+    22     1      0     0       1        28         1
+    23     1      1     0       1        28         4
+    24     1      0     0       2        28         4
+    25     1      1     0       2        28         7
+    26     1      0     0       3        28         7
+    27     1      1     0       3        28        10
+    28     1      0     0       4        28        10
+    29     1      1     0       4        28        13
+    30     1      0     0       5        28        13
+    31     1      1     0       5        28        16
+    32     1      0     0       6        28        16
+    33     1      1     0       6        28        19
+    34     1      0     0       7        28        19
+    35     1      1     0       7        28        22
+    36     1      0     0       8        28        22
+    37     1      1     0       8        28        25
+    38     1      0     0       9        28        25
+    39     1      1     0       9        28        28
 </pre>
 </div>
 </div>
@@ -12370,33 +12314,10 @@ register input and see if those values propagate to the register output:</p>
 <div class="prompt"></div>
 
 
-
-<div class="output_html rendered_html output_subarea ">
-<div><script type="WaveDrom">{"signal": [{"wave": "01010101010101010101", "name": "clk"}, {"wave": "=.=.=.=.=.=.=.=.=.=.", "name": "data_in", "data": ["74", "14", "c3", "3a", "d1", "65", "6f", "83", "38", "a1"]}, {"wave": "==.=.=.=.=.=.=.=.=.=", "name": "data_out", "data": ["0", "4a", "14", "c3", "3a", "d1", "65", "6f", "83", "38", "161"]}]}</script></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>&lt;class &#39;myhdl.StopSimulation&#39;&gt;: No more events
+</pre>
 </div>
-
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-
-
-
-<div id="7fda5bdd-f397-4a77-8075-2ac99ec60d3e"></div>
-<div class="output_subarea output_javascript ">
-<script type="text/javascript">
-var element = $('#7fda5bdd-f397-4a77-8075-2ac99ec60d3e');
-$.getScript("https://wavedrom.com/wavedrom.min.js", function () {
-$.getScript("https://wavedrom.com/skins/default.js", function () {
-WaveDrom.ProcessAll();});
-});
-
-</script>
-</div>
-
 </div>
 
 </div>
@@ -12407,19 +12328,17 @@ WaveDrom.ProcessAll();});
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From the logic waveforms, you can see the value on the <code>data_in</code> bus is transferred to the
-<code>data_out</code> bus whenever a rising edge occurs on the <code>clk</code> signal.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>The register appears to be working, so I'll move on to begin implementing the adder
-branch of the blinker hierarchy.
-Here's the MyHDL for the combinatorial logic of a single full-adder bit:</p>
+<p>The simulation results show the values [1, 4, 7, 10, 13, 16, 19, 22, 25, 28] entering on the data input bus
+and being stored in the first ten RAM locations
+during the interval $t =$ [0, 19] when the write control input is high.
+Then the same set of data appears on the data output bus during $t =$ [20, 39] when the 
+first ten locations of the RAM are read back.
+So the RAM passes this simple simulation.</p>
+<p>Now let's see how Yosys interprets this RAM description.
+First, I'll generate the Verilog code for a RAM with an eight-bit address bus ($2^8$ = 256 locations) with
+each word able to store an eight-bit byte.
+This works out to a total storage of 256&nbsp;$\times$&nbsp;8&nbsp;bits&nbsp;$=$&nbsp;2048&nbsp;bits.
+That should fit comfortably in a single, 4096-bit BRAM.</p>
 
 </div>
 </div>
@@ -12429,450 +12348,7 @@ Here's the MyHDL for the combinatorial logic of a single full-adder bit:</p>
 <div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
-<span class="k">def</span> <span class="nf">full_adder_bit</span><span class="p">(</span><span class="n">a_i</span><span class="p">,</span> <span class="n">b_i</span><span class="p">,</span> <span class="n">c_i</span><span class="p">,</span> <span class="n">s_o</span><span class="p">,</span> <span class="n">c_o</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Inputs:</span>
-<span class="sd">      a_i, b_i: Inputs from i-th bit of a and b values.</span>
-<span class="sd">      c_i: Input from carry output of (i-1)-th adder stage.</span>
-<span class="sd">    Outputs:</span>
-<span class="sd">      s_o: Output of i-th sum bit.</span>
-<span class="sd">      c_o: Carry output to the (i+1)-th adder stage.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="nd">@comb_logic</span>
-    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
-        <span class="c1"># Exclusive-OR (^) the inputs to create the sum bit.</span>
-        <span class="n">s_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">a_i</span> <span class="o">^</span> <span class="n">b_i</span> <span class="o">^</span> <span class="n">c_i</span>
-        <span class="c1"># Generate a carry output if two or more of the inputs are 1.</span>
-        <span class="c1"># This uses the logic AND (&amp;) and OR (|) operators.</span>
-        <span class="n">c_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="p">(</span><span class="n">a_i</span> <span class="o">&amp;</span> <span class="n">b_i</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">a_i</span> <span class="o">&amp;</span> <span class="n">c_i</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">b_i</span> <span class="o">&amp;</span> <span class="n">c_i</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>To test the full-adder bit, I'll apply every possible combination of the three inputs and
-see how it reacts:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">initialize</span><span class="p">()</span>  <span class="c1"># Initialize for a new simulation.</span>
-
-<span class="c1"># Declare input and output signals for the full-adder bit.</span>
-<span class="n">a_i</span><span class="p">,</span> <span class="n">b_i</span><span class="p">,</span> <span class="n">c_i</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;a_i&#39;</span><span class="p">),</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;b_i&#39;</span><span class="p">),</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;c_i&#39;</span><span class="p">)</span>
-<span class="n">sum_o</span><span class="p">,</span> <span class="n">c_o</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;sum_o&#39;</span><span class="p">),</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;c_o&#39;</span><span class="p">)</span>
-
-<span class="c1"># Instantiate a full-adder bit with the I/O connections.</span>
-<span class="n">full_adder_bit</span><span class="p">(</span><span class="n">a_i</span><span class="p">,</span> <span class="n">b_i</span><span class="p">,</span> <span class="n">c_i</span><span class="p">,</span> <span class="n">sum_o</span><span class="p">,</span> <span class="n">c_o</span><span class="p">)</span>
-
-<span class="c1"># Simulate the full-adder bit operation for every possible combination</span>
-<span class="c1"># of the a_i, b_i and c_i inputs.</span>
-<span class="n">exhaustive_sim</span><span class="p">(</span><span class="n">a_i</span><span class="p">,</span> <span class="n">b_i</span><span class="p">,</span> <span class="n">c_i</span><span class="p">)</span>
-
-<span class="c1"># Show the response of the full-adder bit to the inputs.</span>
-<span class="n">show_text_table</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  Time    a_i    b_i    c_i    c_o    sum_o
-------  -----  -----  -----  -----  -------
-     0      0      0      0      0        0
-     1      0      0      1      0        1
-     2      0      1      0      0        1
-     3      0      1      1      1        0
-     4      1      0      0      0        1
-     5      1      0      1      1        0
-     6      1      1      0      1        0
-     7      1      1      1      1        1
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>&lt;class &#39;myhdl.StopSimulation&#39;&gt;: No more events
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>You can compare the table of values above to this
-<a href="http://hyperphysics.phy-astr.gsu.edu/hbase/Electronic/ietron/fulladd.gif">full-adder truth-table</a>
-to verify it's working correctly.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Just like the register, I can build a complete adder by iteratively
-instantiating the full-adder bit:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
-<span class="k">def</span> <span class="nf">adder</span><span class="p">(</span><span class="n">a_i</span><span class="p">,</span> <span class="n">b_i</span><span class="p">,</span> <span class="n">s_o</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Inputs:</span>
-<span class="sd">      a_i, b_i: Numbers to be added.</span>
-<span class="sd">    Outputs:</span>
-<span class="sd">      s_o: Sum of a_i and b_i inputs.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    
-    <span class="c1"># Create a bus for the carry bits that pass from one stage to the next.</span>
-    <span class="c1"># There is one more carry bit than the number of adder stages in order</span>
-    <span class="c1"># to drive the carry input of the first stage. </span>
-    <span class="n">c</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a_i</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-    
-    <span class="c1"># Set the carry input to the first stage of the adder to 0.</span>
-    <span class="n">c</span><span class="o">.</span><span class="n">i</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-    
-    <span class="c1"># Use the length of the a_i input bus to set the loop counter.</span>
-    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a_i</span><span class="p">)):</span>
-        
-        <span class="c1"># The k-th bit of the a_i and b_i buses are added with the</span>
-        <span class="c1"># k-th carry bit to create the k-th sum bit and the</span>
-        <span class="c1"># carry output bit. The carry output is the </span>
-        <span class="c1"># carry input to the (k+1)-th stage.</span>
-        <span class="n">full_adder_bit</span><span class="p">(</span><span class="n">a_i</span><span class="o">=</span><span class="n">a_i</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">b_i</span><span class="o">=</span><span class="n">b_i</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">c_i</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">o</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">s_o</span><span class="o">=</span><span class="n">s_o</span><span class="o">.</span><span class="n">i</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">c_o</span><span class="o">=</span><span class="n">c</span><span class="o">.</span><span class="n">i</span><span class="p">[</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I won't even try to do an exhaustive test of the adder because with eight-bit
-input buses, that would take $2^8 \times 2^8 = $ 65,536 simulation cycles
-and nobody would even look at a fraction of the output any way.
-Instead, I'll just check the adder's output for a few randomly-selected inputs:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">initialize</span><span class="p">()</span>  <span class="c1"># Once again, initialize for a new simulation.</span>
-
-<span class="c1"># Declare 8-bit buses for the two numbers to be added and the sum.</span>
-<span class="n">a</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">)</span>
-<span class="n">s</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">)</span>
-
-<span class="c1"># Instantiate an adder and connect the I/O buses.</span>
-<span class="n">adder</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
-
-<span class="c1"># Simulate the adder&#39;s output for 20 randomly-selected inputs.</span>
-<span class="n">random_sim</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">num_tests</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
-
-<span class="c1"># Show a table of the adder output for each set of inputs.</span>
-<span class="n">show_text_table</span><span class="p">()</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>  Time    a    b    sum
-------  ---  ---  -----
-     0  108  114    222
-     1    9    0      9
-     2  119  203     66
-     3   32  201    233
-     4   32   91    123
-     5  167  216    127
-     6  192  163     99
-     7  243   53     40
-     8  167  130     41
-     9  222   89     55
-    10    3   58     61
-    11  255   38     37
-    12   67    6     73
-    13  254   80     78
-    14  103  213     60
-    15  125   71    196
-    16  120   85    205
-    17    7  162    169
-    18  215   11    226
-    19   84  252     80
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>&lt;class &#39;myhdl.StopSimulation&#39;&gt;: No more events
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>You can manually check the table results to see the adder is working correctly.
-(Remember that the adder's output is only eight bits, so it will roll over to 0
-upon reaching 256. Therefore, take the $\bmod{256}$ of the sum of the inputs and compare
-that to the adder's output. For example, $(72 + 213) \bmod{256} = (285) \bmod{256} = 29$.)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now I can move up another level in the hierarchy and build a counter from the adder and register:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
-<span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">cnt_o</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Inputs:</span>
-<span class="sd">      clk_i: Counter increments on the rising edge of the clock.</span>
-<span class="sd">    Outputs:</span>
-<span class="sd">      cnt_o: Counter value.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="c1"># The length of the counter output determines the number of counter bits.</span>
-    <span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cnt_o</span><span class="p">)</span>
-    
-    <span class="n">one</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">init_val</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># A constant bus that carries the value 1.</span>
-    <span class="n">next_cnt</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="n">length</span><span class="p">)</span>         <span class="c1"># A bus that carries the next counter value.</span>
-    
-    <span class="c1"># Add one to the current counter value to create the next value.</span>
-    <span class="n">adder</span><span class="p">(</span><span class="n">one</span><span class="p">,</span> <span class="n">cnt_o</span><span class="p">,</span> <span class="n">next_cnt</span><span class="p">)</span>
-    
-    <span class="c1"># Load the next counter value into the register on a rising clock edge.</span>
-    <span class="n">register</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">next_cnt</span><span class="p">,</span> <span class="n">cnt_o</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Having finally reached the top of the hierarchy, I'll use the counter to complete the implementation of the LED blinker:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
-<span class="k">def</span> <span class="nf">blinker</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">led_o</span><span class="p">,</span> <span class="n">length</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Inputs:</span>
-<span class="sd">      clk_i:  This is a clock signal input.</span>
-<span class="sd">      length: This is the number of bits in the counter that generates the led_o output.</span>
-<span class="sd">    Outputs:</span>
-<span class="sd">      led_o:  This is an output signal that drives an LED on and off.</span>
-<span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">cnt</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;cnt&#39;</span><span class="p">)</span>  <span class="c1"># Declare the counter bus with the given length.</span>
-    <span class="n">counter</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">cnt</span><span class="p">)</span>  <span class="c1"># Instantiate a counter of the same length.</span>
-    
-    <span class="c1"># Attach the MSB of the counter bus to the LED output.</span>
-    <span class="nd">@comb_logic</span>
-    <span class="k">def</span> <span class="nf">output_logic</span><span class="p">():</span>
-        <span class="n">led_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cnt</span><span class="p">[</span><span class="n">length</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's check the operation by simulating a small LED blinker as we did in the previous example:</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">initialize</span><span class="p">()</span>                 <span class="c1"># Initialize for simulation.</span>
-<span class="n">clk</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;clk&#39;</span><span class="p">)</span>       <span class="c1"># Declare the clock input.</span>
-<span class="n">led</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;led&#39;</span><span class="p">)</span>       <span class="c1"># Declare the LED output.</span>
-<span class="n">blinker</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">led</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>         <span class="c1"># Instantiate a three-bit blinker and attach I/O signals.</span>
-<span class="n">clk_sim</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span> <span class="n">num_cycles</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>  <span class="c1"># Apply 16 clock pulses.</span>
-<span class="n">show_waveforms</span><span class="p">()</span>             <span class="c1"># Look at the waveforms.</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>&lt;class &#39;myhdl.StopSimulation&#39;&gt;: No more events
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-
-<div class="output_html rendered_html output_subarea ">
-<div><script type="WaveDrom">{"signal": [{"wave": "01010101010101010101010101010101", "name": "clk"}, {"wave": "==.=.=.=.=.=.=.=.=.=.=.=.=.=.=.=", "name": "cnt", "data": ["0", "1", "2", "3", "4", "5", "6", "7", "0", "1", "2", "3", "4", "5", "6", "7", "0"]}, {"wave": "0......1.......0.......1.......0", "name": "led"}]}</script></div>
-</div>
-
-</div>
-
-<div class="output_area">
-
-<div class="prompt"></div>
-
-
-
-
-
-<div id="a1b79757-de4b-4f2e-bf5d-e201d0dc252c"></div>
-<div class="output_subarea output_javascript ">
-<script type="text/javascript">
-var element = $('#a1b79757-de4b-4f2e-bf5d-e201d0dc252c');
-$.getScript("https//wavedrom.com/wavedrom.min.js", function () {
-$.getScript("https://wavedrom.com/skins/default.js", function () {
-WaveDrom.ProcessAll();});
-});
-
-</script>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>A blinker with a three-bit counter should output an LED signal that runs
-at an eighth of the incoming clock frequency.
-The waveforms show that's what is happening.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Since the simulation seems to work, it's time to convert a larger version of the blinker into Verilog
-after which it can be compiled and run on an iCEstick.
-(Because this LED blinker uses a hierarchical description that results in a lot of
-smaller, individual components at the lower levels, it will take longer to generate
-the Verilog than the previous example. <em>Be patient!</em>)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">toVerilog</span><span class="p">(</span><span class="n">blinker</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">clk</span><span class="p">,</span> <span class="n">led_o</span><span class="o">=</span><span class="n">led</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="mi">22</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">toVerilog</span><span class="p">(</span><span class="n">ram</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">en_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">addr_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">data_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">data_o</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
 </pre></div>
 
 </div>
@@ -12892,71 +12368,19 @@ the Verilog than the previous example. <em>Be patient!</em>)</p>
 <pre>c:\python35-32\lib\site-packages\ipykernel_launcher.py:1: UserWarning: 
     toVerilog(): Deprecated usage: See http://dev.myhdl.org/meps/mep-114.html
   &#34;&#34;&#34;Entry point for launching an IPython kernel.
-c:\python35-32\lib\site-packages\myhdl\conversion\_toVerilog.py:348: ToVerilogWarning: Signal is not driven: k_one
-  category=ToVerilogWarning
-c:\python35-32\lib\site-packages\myhdl\conversion\_toVerilog.py:348: ToVerilogWarning: Signal is not driven: k_chunk_insts_0_chunk_insts_3_chunk_insts_1_a
-  category=ToVerilogWarning
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[12]:</div>
+<div class="prompt output_prompt">Out[5]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>[&lt;myhdl._always_comb._AlwaysComb at 0x5ad0f50&gt;,
- [[[&lt;myhdl._always_comb._AlwaysComb at 0x54cb210&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x580fbb0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x580fbf0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x580fdf0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x580ff50&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x580ff70&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x580fab0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d0f0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d470&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d230&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d070&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d1b0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d630&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d830&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d3d0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d670&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d810&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d6d0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d390&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d7b0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d890&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d910&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584de70&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584d3f0&gt;],
-   [&lt;myhdl._always_comb._AlwaysComb at 0x584dff0&gt;]],
-  [[&lt;myhdl._always_comb._AlwaysComb at 0x5ad0070&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0250&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0370&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad02f0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0130&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad03b0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad04b0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0430&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0490&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0510&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad05b0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0690&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0970&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0710&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0650&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad06f0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0630&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0610&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0470&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad07f0&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0910&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0a10&gt;],
-   [&lt;myhdl._always_seq._AlwaysSeq at 0x5ad0ab0&gt;]]]]</pre>
+<pre>[&lt;myhdl._always_seq._AlwaysSeq at 0x55a66d0&gt;]</pre>
 </div>
 
 </div>
@@ -12969,8 +12393,164 @@ c:\python35-32\lib\site-packages\myhdl\conversion\_toVerilog.py:348: ToVerilogWa
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Whew, done!
-You may notice a few warnings about undriven signals, but don't worry about those.</p>
+<p>Next, I'll pass the Verilog code to Yosys and see what FPGA resources it uses:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">log</span> <span class="o">=</span> <span class="o">!</span>yosys -p <span class="s2">&quot;synth_ice40&quot;</span> ram.v
+<span class="n">print_stats</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>                     <span class="c1"># Just print the FPGA resource usage stats from the log output.</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>=== ram ===
+
+   Number of wires:               2307
+   Number of wire bits:           4127
+   Number of public wires:         262
+   Number of public wire bits:    2075
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:               4108
+     SB_DFFE                      2056
+     SB_LUT4                      2052
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Yowsa! It looks like Yosys is building the RAM from individual flip-flops -- 2056 of 'em.
+That's definitely not what we want.</p>
+<p>The reason for the lousy implementation is that I haven't given Yosys a description that will
+trigger its RAM inference procedure.
+I searched and
+<a href="https://stackoverflow.com/questions/41499494/how-can-i-use-ice40-4k-block-ram-in-512x8-read-mode-with-icestorm">found the following Verilog code</a>
+that <em>does</em> trigger Yosys:</p>
+
+<pre><code>module test(input clk, wen, input [8:0] addr, input [7:0] wdata, output reg [7:0] rdata);
+  reg [7:0] mem [0:511];
+  initial mem[0] = 255;
+  always @(posedge clk) begin
+        if (wen) mem[addr] &lt;= wdata;
+        rdata &lt;= mem[addr];
+  end
+endmodule</code></pre>
+<p>Then I just fiddled with my code until it produced something like that.
+It turns out the culprit is the presence of the enable input (<code>en_i</code>).
+Here's what happens if I take that out and leave the RAM enabled all the time:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">ram</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span><span class="n">wr_i</span><span class="p">,</span> <span class="n">addr_i</span><span class="p">,</span> <span class="n">data_i</span><span class="p">,</span> <span class="n">data_o</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">      clk_i:  Data is read/written on the rising edge of this clock input.</span>
+<span class="sd">      wr_i:   When high, data is written to the RAM; when low, data is read from the RAM.</span>
+<span class="sd">      addr_i: Address bus for selecting which RAM location is being read/written.</span>
+<span class="sd">      data_i: Data bus for writing data into the RAM.</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">      data_o: Data bus for reading data from the RAM.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">mem</span> <span class="o">=</span> <span class="p">[</span><span class="n">Bus</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="nb">len</span><span class="p">(</span><span class="n">addr_i</span><span class="p">))]</span>
+    
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">wr_i</span><span class="p">:</span>
+            <span class="n">mem</span><span class="p">[</span><span class="n">addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">data_i</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">data_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">mem</span><span class="p">[</span><span class="n">addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span>
+                
+<span class="n">toVerilog</span><span class="p">(</span><span class="n">ram</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">addr_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">data_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">data_o</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="o">!</span>yosys -p <span class="s2">&quot;synth_ice40&quot;</span> ram.v
+<span class="n">print_stats</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\python35-32\lib\site-packages\ipykernel_launcher.py:22: UserWarning: 
+    toVerilog(): Deprecated usage: See http://dev.myhdl.org/meps/mep-114.html
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>=== ram ===
+
+   Number of wires:                  7
+   Number of wire bits:             43
+   Number of public wires:           5
+   Number of public wire bits:      26
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  2
+     SB_LUT4                         1
+     SB_RAM40_4K                     1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now the statistics are much more reasonable: only a single block RAM is used.</p>
 
 </div>
 </div>
@@ -12979,8 +12559,462 @@ You may notice a few warnings about undriven signals, but don't worry about thos
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The next step is to write a file with the blinker pin assignments for the iCEstick board.
-The 12 MHz clock enters through pin 21 of the FPGA, and LED D1 is driven by pin 99.</p>
+<p>You can even remove the <code>else</code> clause and continually read out the RAM location at the current address:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">simpler_ram</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span><span class="n">wr_i</span><span class="p">,</span> <span class="n">addr_i</span><span class="p">,</span> <span class="n">data_i</span><span class="p">,</span> <span class="n">data_o</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">      clk_i:  Data is read/written on the rising edge of this clock input.</span>
+<span class="sd">      wr_i:   When high, data is written to the RAM; when low, data is read from the RAM.</span>
+<span class="sd">      addr_i: Address bus for selecting which RAM location is being read/written.</span>
+<span class="sd">      data_i: Data bus for writing data into the RAM.</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">      data_o: Data bus for reading data from the RAM.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">mem</span> <span class="o">=</span> <span class="p">[</span><span class="n">Bus</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="nb">len</span><span class="p">(</span><span class="n">addr_i</span><span class="p">))]</span>
+    
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">wr_i</span><span class="p">:</span>
+            <span class="n">mem</span><span class="p">[</span><span class="n">addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">data_i</span>
+        <span class="n">data_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">mem</span><span class="p">[</span><span class="n">addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span>  <span class="c1"># RAM address is always read out!</span>
+                
+<span class="n">toVerilog</span><span class="p">(</span><span class="n">simpler_ram</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">addr_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">data_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">data_o</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+
+<span class="n">log</span> <span class="o">=</span> <span class="o">!</span>yosys -p <span class="s2">&quot;synth_ice40&quot;</span> simpler_ram.v
+<span class="n">print_stats</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\python35-32\lib\site-packages\ipykernel_launcher.py:21: UserWarning: 
+    toVerilog(): Deprecated usage: See http://dev.myhdl.org/meps/mep-114.html
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>=== simpler_ram ===
+
+   Number of wires:                  6
+   Number of wire bits:             42
+   Number of public wires:           5
+   Number of public wire bits:      26
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  1
+     SB_RAM40_4K                     1
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This reduces the resource usage by a single LUT:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The iCE40 BRAMs even allow a <em>dual-port</em> mode:
+a value can be written to one address while data is read from a second, independent address.
+(This is useful for building things like
+<a href="https://en.wikipedia.org/wiki/FIFO_%28computing_and_electronics%29#Electronics">FIFOs</a>.)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">dualport_ram</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">wr_i</span><span class="p">,</span> <span class="n">wr_addr_i</span><span class="p">,</span> <span class="n">rd_addr_i</span><span class="p">,</span> <span class="n">data_i</span><span class="p">,</span> <span class="n">data_o</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">      clk_i:     Data is read/written on the rising edge of this clock input.</span>
+<span class="sd">      wr_i:      When high, data is written to the RAM; when low, data is read from the RAM.</span>
+<span class="sd">      wr_addr_i: Address bus for selecting which RAM location is being written.</span>
+<span class="sd">      rd_addr_i: Address bus for selecting which RAM location is being read.</span>
+<span class="sd">      data_i:    Data bus for writing data into the RAM.</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">      data_o:    Data bus for reading data from the RAM.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="n">mem</span> <span class="o">=</span> <span class="p">[</span><span class="n">Bus</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data_i</span><span class="p">))</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="nb">len</span><span class="p">(</span><span class="n">wr_addr_i</span><span class="p">))]</span>
+    
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">wr_i</span><span class="p">:</span>
+            <span class="n">mem</span><span class="p">[</span><span class="n">wr_addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">data_i</span>
+        <span class="n">data_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">mem</span><span class="p">[</span><span class="n">rd_addr_i</span><span class="o">.</span><span class="n">val</span><span class="p">]</span>  <span class="c1"># Read from a different location than write.</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I'll run a simulation of the dual-port RAM similar to the one I did above,
+but here I'll start reading from the RAM before I finish writing data to it:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">initialize</span><span class="p">()</span>
+
+<span class="c1"># Create wires and buses to connect to the dual-port RAM.</span>
+<span class="n">clk</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;clk&#39;</span><span class="p">)</span>
+<span class="n">wr</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;wr&#39;</span><span class="p">)</span>
+<span class="n">wr_addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;wr_addr&#39;</span><span class="p">)</span>  <span class="c1"># Address bus for writes.</span>
+<span class="n">rd_addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;rd_addr&#39;</span><span class="p">)</span>  <span class="c1"># Second address bus for reads.</span>
+<span class="n">data_i</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_i&#39;</span><span class="p">)</span>
+<span class="n">data_o</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;data_o&#39;</span><span class="p">)</span>
+
+<span class="c1"># Instantiate the RAM.</span>
+<span class="n">dualport_ram</span><span class="p">(</span><span class="n">clk_i</span><span class="o">=</span><span class="n">clk</span><span class="p">,</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">wr</span><span class="p">,</span> <span class="n">wr_addr_i</span><span class="o">=</span><span class="n">wr_addr</span><span class="p">,</span> <span class="n">rd_addr_i</span><span class="o">=</span><span class="n">rd_addr</span><span class="p">,</span> <span class="n">data_i</span><span class="o">=</span><span class="n">data_i</span><span class="p">,</span> <span class="n">data_o</span><span class="o">=</span><span class="n">data_o</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">ram_test_bench</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>  <span class="c1"># Perform 10 RAM writes and reads.</span>
+        
+        <span class="c1"># Write data to address i.</span>
+        <span class="n">wr_addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="n">data_i</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">wr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>
+        
+        <span class="c1"># Read data from address i-3. After three clocks, the data that entered</span>
+        <span class="c1"># on the data_i bus will start to appear on the data_o bus.</span>
+        <span class="n">rd_addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">3</span>
+        
+        <span class="c1"># Pulse the clock to trigger the write and read operations.</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">clk</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">yield</span> <span class="n">delay</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Simulate the RAM using the test bench.</span>
+<span class="n">simulate</span><span class="p">(</span><span class="n">ram_test_bench</span><span class="p">())</span>
+
+<span class="c1"># Look at the RAM inputs and outputs as the simulation was executed.</span>
+<span class="n">show_text_table</span><span class="p">(</span><span class="s1">&#39;clk wr wr_addr data_i rd_addr data_o&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>  Time    clk    wr    wr_addr    data_i    rd_addr    data_o
+------  -----  ----  ---------  --------  ---------  --------
+     0      0     1          0         1        253         0
+     1      1     1          0         1        253         0
+     2      0     1          1         4        254         0
+     3      1     1          1         4        254         0
+     4      0     1          2         7        255         0
+     5      1     1          2         7        255         0
+     6      0     1          3        10          0         0
+     7      1     1          3        10          0         1
+     8      0     1          4        13          1         1
+     9      1     1          4        13          1         4
+    10      0     1          5        16          2         4
+    11      1     1          5        16          2         7
+    12      0     1          6        19          3         7
+    13      1     1          6        19          3        10
+    14      0     1          7        22          4        10
+    15      1     1          7        22          4        13
+    16      0     1          8        25          5        13
+    17      1     1          8        25          5        16
+    18      0     1          9        28          6        16
+    19      1     1          9        28          6        19
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>&lt;class &#39;myhdl.StopSimulation&#39;&gt;: No more events
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the simulation output, you can see the value that entered the RAM through the <code>data_i</code> bus
+on the rising clock edge at time $t$ then exited on the <code>data_o</code> bus three clock cycles
+later at time $t + 6$.
+In this example, the dual-port RAM is acting as a simple <a href="https://en.wikipedia.org/wiki/Digital_delay_line">delay line</a>.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Skinny-RAM,-Fat-RAM">Skinny RAM, Fat RAM<a class="anchor-link" href="#Skinny-RAM,-Fat-RAM">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>In the previous section, I built a 256-byte RAM. Is that it? Is that <em>all</em> you can do with the block RAM?</p>
+<p>Obviously not or else why would I even bring this up?
+Since block RAMs first appeared in FPGAs, the designers have allowed you to select the width of
+the data locations.
+While the number of data bits in the RAM is constant, you can clump them into different
+word sizes.
+Naturally, you'll get more addressable RAM locations if you use a narrow word width ("skinny" RAM)
+as compared to using wider words ("fat" RAM).
+Here are the allowable widths and the corresponding number of addressable locations 
+for the 4K BRAMs in the iCE40 FPGA:</p>
+<table>
+<thead><tr>
+<th style="text-align:center">Data Width</th>
+<th style="text-align:right"># of Locations</th>
+<th style="text-align:center">Address Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:right">2048</td>
+<td style="text-align:center">11</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:right">1024</td>
+<td style="text-align:center">10</td>
+</tr>
+<tr>
+<td style="text-align:center">8</td>
+<td style="text-align:right">512</td>
+<td style="text-align:center">9</td>
+</tr>
+<tr>
+<td style="text-align:center">16</td>
+<td style="text-align:right">256</td>
+<td style="text-align:center">8</td>
+</tr>
+</tbody>
+</table>
+<p>So how do you set the RAM width?
+Easy, just set the number of data bus bits and Yosys will select the smallest
+width that will hold it.
+For example, specifying a data width of seven bits will make Yosys choose a BRAM width of eight bits.
+Of course, that means you'll waste one bit of every memory location, but <em>c'est la vie</em>.</p>
+<p>Specifying the number of addressable locations in the RAM is done similarly by setting the
+width of the address bus.
+To illustrate, an eleven-bit address bus would translate to $2^{11} =$ 2048 addressable locations.</p>
+<p>Let's try some various word and address widths and see what Yosys does with them.
+First, here's a RAM with 512 ($2^9$) ten-bit words:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">toVerilog</span><span class="p">(</span><span class="n">ram</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">addr_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="n">data_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">data_o</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="n">log</span> <span class="o">=</span> <span class="o">!</span>yosys -p <span class="s2">&quot;synth_ice40&quot;</span> ram.v
+<span class="n">print_stats</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\python35-32\lib\site-packages\ipykernel_launcher.py:1: UserWarning: 
+    toVerilog(): Deprecated usage: See http://dev.myhdl.org/meps/mep-114.html
+  &#34;&#34;&#34;Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>=== ram ===
+
+   Number of wires:                  9
+   Number of wire bits:             72
+   Number of public wires:           5
+   Number of public wire bits:      31
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  3
+     SB_LUT4                         1
+     SB_RAM40_4K                     2
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Two BRAMs are used because a data width of sixteen bits is needed to hold the ten-bit words and a single 4K&nbsp;BRAM
+can only hold 256 of those.</p>
+<p>What about a wide RAM with 128 ($2^7$) 24-bit words? That requires 3072 total bits so you would think that should fit
+into a single 4K BRAM, right?</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">toVerilog</span><span class="p">(</span><span class="n">ram</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">addr_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">7</span><span class="p">),</span> <span class="n">data_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">24</span><span class="p">),</span> <span class="n">data_o</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span>
+<span class="n">log</span> <span class="o">=</span> <span class="o">!</span>yosys -p <span class="s2">&quot;synth_ice40&quot;</span> ram.v
+<span class="n">print_stats</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\python35-32\lib\site-packages\ipykernel_launcher.py:1: UserWarning: 
+    toVerilog(): Deprecated usage: See http://dev.myhdl.org/meps/mep-114.html
+  &#34;&#34;&#34;Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>=== ram ===
+
+   Number of wires:                  7
+   Number of wire bits:             74
+   Number of public wires:           5
+   Number of public wire bits:      57
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  3
+     SB_LUT4                         1
+     SB_RAM40_4K                     2
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Since the maximum width of a single BRAM is sixteen bits,
+Yosys employs <em>two</em> BRAMs in parallel to get the entire 24-bit word width and then only uses half the
+addressable locations in each BRAM.
+Thus, a total of 8192 bits of BRAM is used to store the 3072 bits that were requested.</p>
+<p>How about a 24-bit wide RAM with 512 words?
+That's 4$\times$ bigger than the previous one, so will it take 4$\times$ the number of BRAMs?</p>
 
 </div>
 </div>
@@ -12990,16 +13024,54 @@ The 12 MHz clock enters through pin 21 of the FPGA, and LED D1 is driven by pin 
 <div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;blinker.pcf&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pcf</span><span class="p">:</span>
-    <span class="n">pcf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">set_io led_o 99</span>
-<span class="sd">set_io clk_i 21</span>
-<span class="sd">&#39;&#39;&#39;</span>
-    <span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">toVerilog</span><span class="p">(</span><span class="n">ram</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">wr_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">addr_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">9</span><span class="p">),</span> <span class="n">data_i</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">24</span><span class="p">),</span> <span class="n">data_o</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">24</span><span class="p">))</span>
+<span class="n">log</span> <span class="o">=</span> <span class="o">!</span>yosys -p <span class="s2">&quot;synth_ice40&quot;</span> ram.v
+<span class="n">print_stats</span><span class="p">(</span><span class="n">log</span><span class="p">)</span>
 </pre></div>
 
 </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\python35-32\lib\site-packages\ipykernel_launcher.py:1: UserWarning: 
+    toVerilog(): Deprecated usage: See http://dev.myhdl.org/meps/mep-114.html
+  &#34;&#34;&#34;Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>=== ram ===
+
+   Number of wires:                  9
+   Number of wire bits:            108
+   Number of public wires:           5
+   Number of public wire bits:      59
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                  4
+     SB_LUT4                         1
+     SB_RAM40_4K                     3
+</pre>
+</div>
+</div>
+
 </div>
 </div>
 
@@ -13008,7 +13080,59 @@ The 12 MHz clock enters through pin 21 of the FPGA, and LED D1 is driven by pin 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The following commands will compile the Verilog and pin assignments into a bitstream file:</p>
+<p>Actually, it only takes <em>three</em> BRAMs instead of eight.
+Why is that?
+Because Yosys was able to stack two 256$\times$16 BRAMs to create a 512$\times$16 RAM, and then
+put this in parallel with a single 512$\times$8 BRAM to create a total 512$\times$24 RAM.</p>
+<p>From these examples, you can see the efficiency with which you use BRAM resources
+is very dependent upon the RAM aspect-ratio (#locations $\times$ data width) that you specify,
+sometimes in unexpected ways.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Demo-Time!">Demo Time!<a class="anchor-link" href="#Demo-Time!">&#182;</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>As I've said before, it would be a shame to do all this work and then not do something fun with it.
+So I'll show how to use a BRAM to record an on-off sequence of button presses and then play
+it back by lighting the iCEstick LEDs.
+(OK, maybe it's not <em>that</em> fun.)</p>
+<p>Here's the basics of how the circuit operates:</p>
+<ol>
+<li>When button A is pressed and released, set the RAM address to 0 and start recording.</li>
+<li>Every 0.01 seconds, sample the on-off value of button B, store it in RAM at the current address,
+and increment the address.</li>
+<li>If button A is not pressed, return to step 2 and take another sample.
+Otherwise, store the current address to mark the end of the recording,
+and halt here until button A is released.</li>
+<li>When button A is released, reset the address to 0 (the start of the recording).</li>
+<li>Every 0.01 seconds, read a button sample from the RAM and turn an LED on or off depending upon its value.</li>
+<li>If the current address equals the end-of-recording address, reset the address to the beginning of the recording (address 0).
+Otherwise, increment the current address.</li>
+<li>If button A is not pressed, return to step 5 and display another sample.
+Otherwise, loop back to step 1 and to start a new recording.</li>
+</ol>
+<p>The iCEstick board already had the LEDs I needed, but no buttons.
+To fix that, I wired some external buttons to the board as shown in this schematic:</p>
+<p><img src="record_play_circuit.png" alt="Record/playback schematic." width="600px" /></p>
+<p>Next, I broke the record/playback logic into four pieces:</p>
+<ol>
+<li>A RAM for storing the button samples (already coded above).</li>
+<li>A counter that generates a <em>sampling pulse</em> every 0.01 seconds.</li>
+<li>A controller that manages the recording/playback process.</li>
+<li>A reset circuit that generates a single pulse to initialize the controller's state.</li>
+</ol>
+<p>The MyHDL code for the circuit is shown below:</p>
 
 </div>
 </div>
@@ -13018,9 +13142,144 @@ The 12 MHz clock enters through pin 21 of the FPGA, and LED D1 is driven by pin 
 <div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>yosys -q -p <span class="s2">&quot;synth_ice40 -blif blinker.blif&quot;</span> blinker.v
-<span class="o">!</span>arachne-pnr -q -d 1k -p blinker.pcf blinker.blif -o blinker.asc
-<span class="o">!</span>icepack blinker.asc blinker.bin
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">gen_reset</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">reset_o</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Generate a reset pulse to initialize everything.</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        clk_i:   Input clock.</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        reset_o: Active-high reset pulse.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">cntr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Reset counter.</span>
+    
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">logic</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">cntr</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Generate a reset while the counter is less than some threshold</span>
+            <span class="c1"># and increment the counter.</span>
+            <span class="n">cntr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cntr</span><span class="o">.</span><span class="n">next</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">reset_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Release the reset once the counter passes the threshold and</span>
+            <span class="c1"># stop incrementing the counter.</span>
+            <span class="n">reset_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">sample_en</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">do_sample_o</span><span class="p">,</span> <span class="n">frq_in</span><span class="o">=</span><span class="mf">12e6</span><span class="p">,</span> <span class="n">frq_sample</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Send out a pulse every so often to trigger a sampling operation.</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        clk_i:      Input clock.</span>
+<span class="sd">        frq_in:     Frequency of the input clock (defaults to 12 MHz).</span>
+<span class="sd">        frq_sample: Frequency of the sample clock (defaults to 100 Hz).</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        do_sample_o: Sends out a single-cycle pulse every 1/frq_sample seconds.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Compute the width of the counter and when it should roll-over based</span>
+    <span class="c1"># on the master clock frequency and the desired sampling frequency.</span>
+    <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">ceil</span><span class="p">,</span> <span class="n">log2</span>
+    <span class="n">rollover</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">frq_in</span> <span class="o">/</span> <span class="n">frq_sample</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">cntr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">ceil</span><span class="p">(</span><span class="n">log2</span><span class="p">(</span><span class="n">frq_in</span><span class="o">/</span><span class="n">frq_sample</span><span class="p">))))</span>
+    
+    <span class="c1"># Sequential logic for generating the sampling pulse.</span>
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">counter</span><span class="p">():</span>
+        <span class="n">cntr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">cntr</span> <span class="o">+</span> <span class="mi">1</span>         <span class="c1"># Increment the counter.</span>
+        <span class="n">do_sample_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>         <span class="c1"># Clear the sampling pulse output except...</span>
+        <span class="k">if</span> <span class="n">cntr</span> <span class="o">==</span> <span class="n">rollover</span><span class="p">:</span>
+            <span class="n">do_sample_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>     <span class="c1"># ...when the counter rolls over.</span>
+            <span class="n">cntr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span> 
+
+<span class="nd">@chunk</span>
+<span class="k">def</span> <span class="nf">record_play</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">button_a</span><span class="p">,</span> <span class="n">button_b</span><span class="p">,</span> <span class="n">leds_o</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Sample value on button B input, store in RAM, and playback by turning LEDs on/off.</span>
+<span class="sd">    Inputs:</span>
+<span class="sd">        clk_i:    Clock input.</span>
+<span class="sd">        button_a: Button A input. High when pressed. Controls record/play operation.</span>
+<span class="sd">        button_b: Button B input. High when pressed. Used to input samples for controlling LEDs.</span>
+<span class="sd">    Outputs:</span>
+<span class="sd">        leds_o:   LED outputs.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    
+    <span class="c1"># Instantiate the reset generator.</span>
+    <span class="n">reset</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>
+    <span class="n">gen_reset</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">reset</span><span class="p">)</span>
+    
+    <span class="c1"># Instantiate the sampling pulse generator.</span>
+    <span class="n">do_sample</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>
+    <span class="n">sample_en</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">do_sample</span><span class="p">)</span>
+    
+    <span class="c1"># Instantiate a RAM for holding the samples.</span>
+    <span class="n">wr</span> <span class="o">=</span> <span class="n">Wire</span><span class="p">()</span>
+    <span class="n">addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+    <span class="n">end_addr</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">addr</span><span class="p">))</span> <span class="c1"># Holds the last address of the recorded samples.</span>
+    <span class="n">data_i</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">data_o</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">ram</span><span class="p">(</span><span class="n">clk_i</span><span class="p">,</span> <span class="n">wr</span><span class="p">,</span> <span class="n">addr</span><span class="p">,</span> <span class="n">data_i</span><span class="p">,</span> <span class="n">data_o</span><span class="p">)</span>
+    
+    <span class="c1"># States of the record/playback controller.</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">Bus</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>         <span class="c1"># Holds the current state of the controller.</span>
+    <span class="n">INIT</span> <span class="o">=</span> <span class="mi">0</span>               <span class="c1"># Initialize. The reset pulse sends us here.</span>
+    <span class="n">WAITING_TO_RECORD</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Getting read to record samples.</span>
+    <span class="n">RECORDING</span> <span class="o">=</span> <span class="mi">2</span>          <span class="c1"># Actually storing samples in RAM.</span>
+    <span class="n">WAITING_TO_PLAY</span> <span class="o">=</span> <span class="mi">3</span>    <span class="c1"># Getting ready to play back samples.</span>
+    <span class="n">PLAYING</span> <span class="o">=</span> <span class="mi">4</span>            <span class="c1"># Actually playing back samples.</span>
+
+    <span class="c1"># Sequential logic for the record/playback controller.</span>
+    <span class="nd">@seq_logic</span><span class="p">(</span><span class="n">clk_i</span><span class="o">.</span><span class="n">posedge</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">fsm</span><span class="p">():</span>
+        
+        <span class="n">wr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>        <span class="c1"># Keep the RAM write-control off by default.</span>
+        
+        <span class="k">if</span> <span class="n">reset</span><span class="p">:</span>  <span class="c1"># Initialize the controller using the pulse from the reset generator.</span>
+            <span class="n">state</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">INIT</span>  <span class="c1"># Go to the INIT state after the reset is released.</span>
+            
+        <span class="k">elif</span> <span class="n">do_sample</span><span class="p">:</span>  <span class="c1"># Process a sample whenever the sampling pulse arrives.</span>
+        
+            <span class="k">if</span> <span class="n">state</span> <span class="o">==</span> <span class="n">INIT</span><span class="p">:</span>  <span class="c1"># Initialize the controller.</span>
+                <span class="n">leds_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mb">0b10101</span>  <span class="c1"># Light LEDs to indicate the INIT state.</span>
+                <span class="k">if</span> <span class="n">button_a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># Get ready to start recording when button A is pressed.</span>
+                    <span class="n">state</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">WAITING_TO_RECORD</span>  <span class="c1"># Go to record setup state.</span>
+                    
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WAITING_TO_RECORD</span><span class="p">:</span>  <span class="c1"># Setup for recording.</span>
+                <span class="n">leds_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mb">0b11010</span>  <span class="c1"># Light LEDs to indicate this state.</span>
+                <span class="k">if</span> <span class="n">button_a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Start recording once button A is released.</span>
+                    <span class="n">addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>           <span class="c1"># Start recording from beginning of RAM.</span>
+                    <span class="n">data_i</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">button_b</span>  <span class="c1"># Record the state of button B.</span>
+                    <span class="n">wr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>             <span class="c1"># Write button B state to RAM.</span>
+                    <span class="n">state</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">RECORDING</span>  <span class="c1"># Go to recording state.</span>
+                    
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">RECORDING</span><span class="p">:</span>  <span class="c1"># Record samples of button B to RAM.</span>
+                <span class="n">addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">addr</span> <span class="o">+</span> <span class="mi">1</span>    <span class="c1"># Next location for storing sample.</span>
+                <span class="n">data_i</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">button_b</span>  <span class="c1"># Sample state of button B.</span>
+                <span class="n">wr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">1</span>             <span class="c1"># Write button B state to RAM.</span>
+                <span class="c1"># For feedback to the user, display the state of button B on the LEDs.</span>
+                <span class="n">leds_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">concat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">button_b</span><span class="p">,</span> <span class="n">button_b</span><span class="p">,</span> <span class="n">button_b</span><span class="p">,</span> <span class="n">button_b</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">button_a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># If button A pressed, then get ready to play back the stored samples.</span>
+                    <span class="n">end_addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">addr</span><span class="o">+</span><span class="mi">1</span>  <span class="c1"># Store the last sample address.</span>
+                    <span class="n">state</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">WAITING_TO_PLAY</span>  <span class="c1"># Go to playback setup state.</span>
+                    
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">WAITING_TO_PLAY</span><span class="p">:</span>  <span class="c1"># Setup for playback.</span>
+                <span class="n">leds_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mb">0b10000</span>  <span class="c1"># Light LEDs to indicate this state.</span>
+                <span class="k">if</span> <span class="n">button_a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="c1"># Start playback once button A is released.</span>
+                    <span class="n">addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>         <span class="c1"># Start playback from beginning of RAM.</span>
+                    <span class="n">state</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">PLAYING</span>  <span class="c1"># Go to playback state.</span>
+                    
+            <span class="k">elif</span> <span class="n">state</span> <span class="o">==</span> <span class="n">PLAYING</span><span class="p">:</span>  <span class="c1"># Show recorded state of button B on the LEDs.</span>
+                <span class="n">leds_o</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">concat</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">data_o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">data_o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">data_o</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">data_o</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                <span class="n">addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">addr</span> <span class="o">+</span> <span class="mi">1</span>  <span class="c1"># Advance to the next sample.</span>
+                <span class="k">if</span> <span class="n">addr</span> <span class="o">==</span> <span class="n">end_addr</span><span class="p">:</span>
+                    <span class="c1"># Loop back to the start of RAM if this is the last sample.</span>
+                    <span class="n">addr</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">if</span> <span class="n">button_a</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="c1"># Record a new sample if button A is pressed.</span>
+                    <span class="n">state</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="n">WAITING_TO_RECORD</span>
 </pre></div>
 
 </div>
@@ -13032,7 +13291,9 @@ The 12 MHz clock enters through pin 21 of the FPGA, and LED D1 is driven by pin 
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Finally, the bitstream is ready to download into the iCEstick:</p>
+<p>After converting the MyHDL to Verilog, I wrote the pin assignments for the LEDs and buttons to a file.
+I'm using all five LEDs on the iCEstick along with the
+two pushbuttons I connected to pins 114 and 118 of the FPGA through the iCEstick I/O header.</p>
 
 </div>
 </div>
@@ -13042,7 +13303,67 @@ The 12 MHz clock enters through pin 21 of the FPGA, and LED D1 is driven by pin 
 <div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>iceprog blinker.bin
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">toVerilog</span><span class="p">(</span><span class="n">record_play</span><span class="p">,</span> <span class="n">clk_i</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">button_a</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">button_b</span><span class="o">=</span><span class="n">Wire</span><span class="p">(),</span> <span class="n">leds_o</span><span class="o">=</span><span class="n">Bus</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;record_play.pcf&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">pcf</span><span class="p">:</span>
+    <span class="n">pcf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">set_io clk_i 21</span>
+<span class="sd">set_io leds_o[0] 99</span>
+<span class="sd">set_io leds_o[1] 98</span>
+<span class="sd">set_io leds_o[2] 97</span>
+<span class="sd">set_io leds_o[3] 96</span>
+<span class="sd">set_io leds_o[4] 95</span>
+<span class="sd">set_io button_a 118</span>
+<span class="sd">set_io button_b 114</span>
+<span class="sd">&#39;&#39;&#39;</span>
+    <span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>c:\python35-32\lib\site-packages\ipykernel_launcher.py:1: UserWarning: 
+    toVerilog(): Deprecated usage: See http://dev.myhdl.org/meps/mep-114.html
+  &#34;&#34;&#34;Entry point for launching an IPython kernel.
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finally, I synthesized, compiled, and downloaded the FPGA bitstream using the
+(by now) familiar sequence of commands:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>yosys -q -p <span class="s2">&quot;synth_ice40 -blif record_play.blif&quot;</span> record_play.v
+<span class="o">!</span>arachne-pnr -q -d 1k -p record_play.pcf record_play.blif -o record_play.asc
+<span class="o">!</span>icepack record_play.asc record_play.bin
+<span class="o">!</span>iceprog record_play.bin
 </pre></div>
 
 </div>
@@ -13083,192 +13404,60 @@ Bye.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And that's it! LED D1 on your iCEstick board should be blinking.
-The LED blinker has been rebuilt using hierarchical design but still functions identically to the original.</p>
+<p>Once the bitstream was downloaded, I could store and playback a sequence of button pushes.
+It's difficult to describe using text or images, so here's a nice video of how it works:</p>
 
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="s1">&#39;&lt;div style=&quot;padding-bottom:50.000%;&quot;&gt;&lt;iframe src=&quot;https://streamable.com/s/ihqg4/eqmlzq&quot; frameborder=&quot;0&quot; width=&quot;100%&quot; height=&quot;100%&quot; allowfullscreen style=&quot;width:640px;position:absolute;&quot;&gt;&lt;/iframe&gt;&lt;/div&gt;&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[17]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div style="padding-bottom:50.000%;"><iframe src="https://streamable.com/s/ihqg4/eqmlzq" frameborder="0" width="100%" height="100%" allowfullscreen style="width:640px;position:absolute;"></iframe></div>
+</div>
+
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-This-a-Good-Idea?">Was This a Good Idea?<a class="anchor-link" href="#Was-This-a-Good-Idea?">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>After all the effort of breaking down the LED blinker into a hierarchy and then implementing
-it in MyHDL from the bottom up, you might ask yourself: "Was this a good idea?"</p>
-<p>In the sense of learning about hierarchy and abstraction, yes it was.
-Illustrating these principles by showing how they're applied to a problem
-you've already solved is a time-honored technique.</p>
-<p>But in the sense of good design practice, then the answer is <em>NO!</em>
-It took a lot more effort to get the same result that was originally expressed in a few
-lines of code.
-<em>And less code is better code:</em>
-there's fewer places to make a mistake.
-It's also easier to understand something that you can take in with almost a single glance
-versus scanning through multiple screens of code, which is important if you're
-trying to maintain and extend a design over a long period of time.</p>
-<p>But real designs usually can't be solved with just a few lines of code.
-That's where hierarchy and abstraction can help you out.
-But don't carry it to an extreme: when you get to a level in the
-hierarchy that you can describe with a few lines of code, then don't
-break it down any further.
-Skill in any discipline is not just knowing what to do,
-but also knowing when <em>not</em> to do it.</p>
-<p>You might also be asking: "Forgetting about code size and clarity,
-is one of these designs using the resources of the FPGA more efficiently?"
-We can get a feel for this by omitting the <code>-q</code> option when running Yosys
-so it will spit out a bunch of status information as it works.
-Near the end, you'll see a section that reports how much of each
-type of FPGA resource was used to build the synthesized design.</p>
-<p>These are the stats for the low-level, hierarchical LED blinker:</p>
-
-<pre><code>=== blinker ===
-
-   Number of wires:                 65
-   Number of wire bits:            191
-   Number of public wires:          59
-   Number of public wire bits:     185
-   Number of memories:               0
-   Number of memory bits:            0
-   Number of processes:              0
-   Number of cells:                 50
-     SB_DFF                         22
-     SB_LUT4                        28
-
-</code></pre>
-<p>The low-level blinker uses 50 cells in the FPGA:
-22 for the D flip-flops (SB_DFF) of the counter and
-28 four-input lookup tables (SB_LUT4) for the adder.
-(The iCE40HX1K FPGA on the iCEstick has 1,280 LUTs and D flip-flops,
-so we're not exactly straining it here.)</p>
-<p>Compare that with the stats for the high-level, non-hierarchical 
-LED blinker we designed in the previous example:</p>
-
-<pre><code>=== blinker ===
-
-   Number of wires:                  5
-   Number of wire bits:             68
-   Number of public wires:           3
-   Number of public wire bits:      24
-   Number of memories:               0
-   Number of memory bits:            0
-   Number of processes:              0
-   Number of cells:                 64
-     SB_CARRY                       20
-     SB_DFF                         21
-     SB_DFFE                         1
-     SB_LUT4                        22
-
-</code></pre>
-<p>The high-level design actually uses more total cells (64),
-but of different types.
-It still employs 22 D flip-flops (the SB_DFFE is a flip-flop with
-an enable input).
-It does use fewer LUTs (22 versus 28), but it makes up for that by using 
-20 carry logic circuits (SB_CARRY) specialized for
-computing the carry bits in an adder.</p>
-<p>However, these stats are a bit misleading because the iCE40 FPGA
-packs a LUT, carry logic and a DFF all together in a single
-<em>logic cell</em> (LC).
-So the high-level blinker could <em>possibly</em> be packed into
-a total of 22 LCs, while the low-level version would require
-a minimum of 28 LCs (six of which would use only the LUT and leave
-the DFF idle).</p>
-<p>In order to resolve the question, we can omit the <code>-q</code> option
-for the Arachne-pnr so it will also generate some additional information.
-Here's the result for the low-level blinker:</p>
-
-<pre><code>After packing:
-IOs          2 / 96
-GBs          0 / 8
-  GB_IOs     0 / 8
-LCs          28 / 1280
-  DFF        22
-  CARRY      0
-  CARRY, DFF 0
-  DFF PASS   0
-  CARRY PASS 0
-BRAMs        0 / 16
-WARMBOOTs    0 / 1
-PLLs         0 / 1
-
-</code></pre>
-<p>And here's the stats for the high-level version:</p>
-
-<pre><code>After packing:
-IOs          2 / 96
-GBs          0 / 8
-  GB_IOs     0 / 8
-LCs          24 / 1280
-  DFF        3
-  CARRY      2
-  CARRY, DFF 19
-  DFF PASS   0
-  CARRY PASS 1
-BRAMs        0 / 16
-WARMBOOTs    0 / 1
-PLLs         0 / 1
-
-</code></pre>
-<p>You can see the high-level blinker can be packed into just 24 LCs,
-while the low-level version requires 28 LCs.</p>
-<p>So <em>why</em> is the high-level design more efficient than the low-level one?
-It's because the <em>intent</em> of the high-level version is more obvious.
-Synthesizers contain <em>optimizers</em> that look for common code structures like
-<code>q.next = q + 1</code> and realize that this implies the need for an adder and a register.
-Knowing that, the synthesizer can make use of special purpose circuitry
-like the carry logic.</p>
-<p>But the low-level design doesn't expose a clear intent;
-it's broken down into a collection of logic gates for the full-adders
-and D flip-flops for the register.
-That's like being handed a bag of jigsaw puzzle pieces: you know there's a picture in there,
-somewhere, but it's a lot of work to put it all back together.
-The synthesizer feels the same way.
-And since there's nothing obvious to trigger its optimizers, it has to go with
-a suboptimal design that doesn't use the special purpose circuitry.</p>
-<p>The takeaway from this: write the leaves of your hierarchy tree using
-high-level code statements and let the synthesizer do the low-level work from there.</p>
-<p>Now, maybe some you have a final question: "How do bears factor into all of this?"</p>
-<p>They don't. I can't believe I have to keep telling you that.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Notes">Notes<a class="anchor-link" href="#Notes">&#182;</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>[1] <a name="Full_Adder_Gates"></a>The gate implementation of a full-adder bit is touched on in the
-    <a href="https://en.wikipedia.org/wiki/Adder_(electronics">Wikipedia article on binary adders</a>.
-    The minutiae involve binary arithmetic, logic minimization, and computer arithmetic circuits,
-    all of which are discussed on many sites in much more detail than I'm willing to provide here.</p>
-<p>[2] <a name="Bus_Notation"></a>The <code>Bus</code> objects provided by PygMyHDL can be thought of as an array of <code>Wire</code> objects.
-    The function of a bus is to accept logic levels output by some circuitry and transfer it to the inputs of some
-    other circuitry. In order to drive a particular wire at index $k$ of a bus <code>B</code>, you have to access the $k$-th <em>input</em>
-    to the bus using the notation <code>B.i[k]</code>. Then, when you want to get hold of that value somewhere else, you
-    can access the <em>output</em> of the bus using the notation <code>B.o[k]</code>. So when you connect buses to a MyHDL function,
-    you'll use the <code>.o</code> suffix for a bus that is driving the function's inputs, and a <code>.i</code> suffix for a bus that is
-    receiving values from the function's outputs.</p>
-<p>[3] <a name="No_I_O_Suffixes"></a>If you have sharp eyes, you'll notice I don't use the <code>.o</code> and <code>.i</code> suffixes
-    when I connect the <code>data_in</code> and <code>data_out</code> buses to the instantiation of the <code>register</code>.
-    That's because I don't need to access individual bits at that point, therefore I can just pass the
-    entire bus to the register. The internals of <code>register</code> will use the suffixes when attaching bits of these
-    buses to the individual D flip-flops.</p>
+<h2 id="Summary">Summary<a class="anchor-link" href="#Summary">&#182;</a></h2><p>Once again, you've made it to the end of another <del>beating</del> tutorial.
+While battle-scarred and weary, your labors have earned you these treasures:</p>
+<ul>
+<li><p>How to write MyHDL that Yosys can recognize as a block RAM.</p>
+</li>
+<li><p>How to read from and write to a RAM.</p>
+</li>
+<li><p>How to create RAMs with various word widths and number of memory locations.</p>
+</li>
+<li><p>How RAMs of different sizes are mapped into the fixed-size iCE40 BRAMs.</p>
+</li>
+</ul>
 
 </div>
 </div>
