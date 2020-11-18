@@ -67,7 +67,7 @@ link to see what PygMyHDL can do.
 
 * Pulse Width Modulators:
   `[Notebook3] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
-  `[HTML3] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/3_pwm/examples/3_pwm/pwm.html>`_
+  `[HTML3] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/3_pwm/pwm.html>`_
 
 * Block (RAM) Party!:
   `[Notebook4] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb>`_ 
