@@ -5,6 +5,9 @@ PygMyHDL
 .. image:: https://img.shields.io/pypi/v/pygmyhdl.svg
         :target: https://pypi.python.org/pypi/pygmyhdl
 
+**PygMyHDL is no longer supported or maintained because
+it depends upon the ``byteplay3`` module which is only compatible
+with Python 3.5.**
 
 PygMyHDL is a thin wrapper around `MyHDL <myhdl.org>`_. MyHDL lets you design
 and simulate digital hardware using Python. PygMyHDL does the same thing,
@@ -14,7 +17,7 @@ and just use straight MyHDL. That's OK; that's why I invented it.
 
 * Free software: MIT license
 
-* Documentation: http://xesscorp.github.io/pygmyhdl
+* Documentation: http://devbisme.github.io/pygmyhdl
 
 
 Features
@@ -45,7 +48,7 @@ PygMyHDL adds the following features to MyHDL:
 * Helper functions are provided for testing a digital design using random test
   vectors, exhaustive test vectors, user-defined test vectors, or a simple clock signal.
 
-* The `myhdlpeek module <xesscorp.github.io/myhdlpeek>`_ is used to display the
+* The `myhdlpeek module <devbisme.github.io/myhdlpeek>`_ is used to display the
   results of logic simulations as waveforms or tables.
 
 
@@ -58,23 +61,23 @@ so you'll have to download and run the notebooks locally or click on the static 
 link to see what PygMyHDL can do.
 
 * The Fastest, Easiest FPGA Blinker, Ever!:
-  `[Notebook1] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb>`_ 
+  `[Notebook1] <https://github.com/devbisme/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb>`_ 
   `[HTML1] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/1_blinker/fastest_easiest_FPGA_blinker_ever.html>`_
 
 * Hierarchy and Abstraction and Ursidae, Oh My!:
-  `[Notebook2] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.ipynb>`_
+  `[Notebook2] <https://github.com/xesdevbismescorp/pygmyhdl/blob/master/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.ipynb>`_
   `[HTML2] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.html>`_
 
 * Pulse Width Modulators:
-  `[Notebook3] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
+  `[Notebook3] <https://github.com/devbisme/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb>`_ 
   `[HTML3] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/3_pwm/pwm.html>`_
 
 * Block (RAM) Party!:
-  `[Notebook4] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb>`_ 
+  `[Notebook4] <https://github.com/devbisme/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb>`_ 
   `[HTML4] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/4_blockram/block_ram_party.html>`_
 
 * FSMs Without Monsters!:
-  `[Notebook5] <https://github.com/xesscorp/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb>`_ 
+  `[Notebook5] <https://github.com/devbisme/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb>`_ 
   `[HTML5] <https://xess.com/pygmyhdl/docs/_build/singlehtml/notebooks/5_fsm/fsm.html>`_
 
 |

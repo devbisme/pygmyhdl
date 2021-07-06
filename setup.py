@@ -7,9 +7,9 @@ import setuptools
 USING_PYTHON2 = (sys.version_info.major == 2)
 USING_PYTHON3 = not USING_PYTHON2
 
-author = 'XESS Corp.'
-email = 'info@xess.com'
-version = '0.0.3'
+author = 'Dave Vandenbout'
+email = 'devb@xess.com'
+version = '0.0.4'
 
 if 'sdist' in sys.argv[1:]:
     with open('pygmyhdl/pckg_info.py','w') as f:
@@ -55,7 +55,7 @@ setup(
     long_description=readme + '\n\n' + history,
     author = author,
     author_email= email,
-    url='https://github.com/xesscorp/pygmyhdl',
+    url='https://github.com/devbisme/pygmyhdl',
 #    packages=['pygmyhdl',],
     packages=setuptools.find_packages(),
     entry_points={'console_scripts':['pygmyhdl = pygmyhdl.__main__:main']},

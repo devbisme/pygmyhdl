@@ -37,7 +37,7 @@ The `Wire` constructor takes the following optional arguments:
 
 `name`:
 
-:    A string containing a name for the [myhdlpeek](http://xesscorp.github.io/myhdlpeek)
+:    A string containing a name for the [myhdlpeek](http://devbisme.github.io/myhdlpeek)
      monitor that will be attached to the signal.
      If no value is given, it defaults to `None` and no signal monitor will be attached.
 
@@ -75,7 +75,7 @@ The `Bus` constructor takes the following arguments:
 
 `name`:
 
-:    A string containing a name for the [myhdlpeek](http://xesscorp.github.io/myhdlpeek)
+:    A string containing a name for the [myhdlpeek](http://devbisme.github.io/myhdlpeek)
      monitor that will be attached to the signal.
      If no value is given, it defaults to `None` and no signal monitor will be attached.
 
@@ -126,6 +126,8 @@ The `Bus` constructor takes the following arguments:
 
 <img src="bus_io.png" alt="Bus .i (input) and .o (output) properties." width="700px" />
 
+![Bus .i (input) and .o (output) properties.](bus_io.png){width=700}
+
 Note that the `.i` and `.o` properties are meant for passing bus bits to/from a module.
 When operating on a bus *within* a module, the standard MyHDL array operator (`[]`) is used.
 There is one exception to this: if you want to set a static value on one or more bits of a `Bus` object
@@ -172,7 +174,7 @@ In addition to the list of states, the `State` constructor takes the following a
 
 `name`:
 
-:    A string containing a name for the [myhdlpeek](http://xesscorp.github.io/myhdlpeek)
+:    A string containing a name for the [myhdlpeek](http://devbisme.github.io/myhdlpeek)
      monitor that will be attached to the state signal.
      If no value is given, it defaults to `None` and no signal monitor will be attached.
 
@@ -382,21 +384,21 @@ so you'll have to download and run the notebooks locally or click on the static 
 link to see what PygMyHDL can do.
 
 * The Fastest, Easiest FPGA Blinker, Ever!:
-  [Notebook1](https://github.com/xesscorp/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb) /
+  [Notebook1](https://github.com/devbisme/pygmyhdl/blob/master/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.ipynb) /
   [HTML1](http://www.xess.com/static/media/pages/pygmyhdl/examples/1_blinker/fastest_easiest_FPGA_blinker_ever.html)
 
 * Hierarchy and Abstraction and Ursidae, Oh My!:
-  [Notebook2](https://github.com/xesscorp/pygmyhdl/blob/master/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.ipynb) /
+  [Notebook2](https://github.com/devbisme/pygmyhdl/blob/master/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.ipynb) /
   [HTML2](http://www.xess.com/static/media/pages/pygmyhdl/examples/2_hierarchy/hierarchy_and_abstraction_and_ursidae_oh_my.html)
 
 * Pulse Width Modulators:
-  [Notebook3](https://github.com/xesscorp/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb) /
+  [Notebook3](https://github.com/devbisme/pygmyhdl/blob/master/examples/3_pwm/pwm.ipynb) /
   [HTML3](http://www.xess.com/static/media/pages/pygmyhdl/examples/3_pwm/pwm.html)
 
 * Block (RAM) Party!:
-  [Notebook4](https://github.com/xesscorp/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb) /
+  [Notebook4](https://github.com/devbisme/pygmyhdl/blob/master/examples/4_blockram/block_ram_party.ipynb) /
   [HTML4](http://www.xess.com/static/media/pages/pygmyhdl/examples/4_blockram/block_ram_party.html)
 
 * FSMs Without Monsters!:
-  [Notebook5](https://github.com/xesscorp/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb) /
+  [Notebook5](https://github.com/devbisme/pygmyhdl/blob/master/examples/5_fsm/fsm.ipynb) /
   [HTML5](http://www.xess.com/static/media/pages/pygmyhdl/examples/5_fsm/fsm.html)

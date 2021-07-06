@@ -54,8 +54,7 @@ docs:
 	rm -f docs/modules.rst
 	sphinx-apidoc -o docs/ pygmyhdl
 	$(MAKE) -C docs clean
-	$(MAKE) -C docs html
-	open docs/_build/html/index.html
+	$(MAKE) -C docs singlehtml
 
 release: clean
 	python setup.py sdist upload

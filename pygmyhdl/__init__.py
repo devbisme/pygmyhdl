@@ -28,7 +28,7 @@ PygMyHDL adds the following features to MyHDL:
 * Helper functions are provided for testing a digital design using random test
   vectors, exhaustive test vectors, user-defined test vectors, or a simple clock signal.
 
-* The myhdlpeek module (xesscorp.github.io/myhdlpeek) is used to display the
+* The myhdlpeek module (devbisme.github.io/myhdlpeek) is used to display the
   results of logic simulations as both waveforms or tables.
 '''
 
